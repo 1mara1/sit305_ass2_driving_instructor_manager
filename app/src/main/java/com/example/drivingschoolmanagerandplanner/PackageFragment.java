@@ -28,9 +28,7 @@ public class PackageFragment extends Fragment {
     private static final String TAG = "PackageFragment" ;
 
     // TODO: Rename and change types of parameters
-    private int hourOfDay;
-    private int minute;
-    Button timePickerButton;
+
      TextView timeTextView;
     EditText timeEditText;
     TimePickerDialog picker;
@@ -79,8 +77,8 @@ public class PackageFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+//        getActivity().getMenuInflater().inflate(R.menu.main_menu, menu);
+//    }
 }

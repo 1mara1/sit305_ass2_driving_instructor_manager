@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.FormsFrameLayout, new PackageFragment());
+        fragmentTransaction.add(R.id.FormsFrameLayout, new StudentFragment());
         fragmentTransaction.commit();
 
 
