@@ -1,0 +1,2 @@
+rootProject.name='DrivingSchoolManagerAndPlanner'
+include ':app'
