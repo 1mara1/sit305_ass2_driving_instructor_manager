@@ -1,5 +1,6 @@
 package com.example.drivingschoolmanagerandplanner;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +11,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import java.util.Objects;
 
 
 /**
@@ -25,6 +29,8 @@ public class DashboardFragment extends Fragment {
     ImageView studentImageView;
     ImageView testImageView;
     ImageView packageImageView;
+    ImageButton testsViewImageButton;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -78,6 +84,8 @@ public class DashboardFragment extends Fragment {
         testImageView = (ImageView)view.findViewById(R.id.testsAddImageButton);
         packageImageView = (ImageView)view.findViewById(R.id.packagesAddImageButton);
 
+        testsViewImageButton = (ImageButton)view.findViewById(R.id.testsViewImageButton);
+
 
         studentImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +100,14 @@ public class DashboardFragment extends Fragment {
                 SetFragment(new LessonFragment());
             }
         });
+
         testImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SetFragment(new DrivingTestFragment());
             }
         });
+
         packageImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,15 +115,23 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        testsViewImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SetFragment(new ListFragment());
+            }
+        });
+
+
         return view;
     }
 
 
     private void SetFragment(Fragment fragment){
 
-        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.add(R.id.FormsFrameLayout, fragment).addToBackStack(null);
+        fragmentTransaction.replace(R.id.FormsFrameLayout, fragment).addToBackStack(null);
         fragmentTransaction.commit();
     }
 }

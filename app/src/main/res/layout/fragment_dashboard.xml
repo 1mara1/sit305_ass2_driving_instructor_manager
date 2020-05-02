@@ -13,11 +13,12 @@
 
         <TextView
             android:id="@+id/textView19"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginStart="8dp"
             android:gravity="center"
-            android:text="Totals" />
+            android:text="Totals"
+            android:textColor="#40C4FF" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +35,7 @@
                 android:text="Students"
                 android:textAlignment="viewEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -43,7 +44,7 @@
                 android:text="25"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="#448AFF"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -62,7 +63,7 @@
                 android:text="Bookings"
                 android:textAlignment="viewEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -71,7 +72,7 @@
                 android:text="2575"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="#448AFF"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -90,7 +91,7 @@
                 android:text="Lessons"
                 android:textAlignment="viewEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -99,7 +100,7 @@
                 android:text="2575"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="#448AFF"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -118,7 +119,7 @@
                 android:text="Income"
                 android:textAlignment="viewEnd"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -127,7 +128,7 @@
                 android:text="2575"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="#448AFF"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -137,11 +138,13 @@
             android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
-            <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/colorAccent" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -154,9 +157,10 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
                 android:gravity="center"
-                android:text="This Week" />
+                android:text="This Week"
+                android:textColor="#40C4FF" />
         </LinearLayout>
 
         <LinearLayout
@@ -183,14 +187,14 @@
                 style="@style/Widget.AppCompat.ImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 android:src="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/lessonViewImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 tools:src="@drawable/ic_search_black_24dp" />
 
         </LinearLayout>
@@ -218,14 +222,14 @@
                 android:id="@+id/studentsAddImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 android:src="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/studentsViewImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 tools:src="@drawable/ic_search_black_24dp" />
 
         </LinearLayout>
@@ -253,17 +257,18 @@
                 android:id="@+id/testsAddImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 android:src="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/testsViewImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 tools:src="@drawable/ic_search_black_24dp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -287,14 +292,14 @@
                 android:id="@+id/packagesAddImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 android:src="@android:drawable/ic_input_add" />
 
             <ImageButton
                 android:id="@+id/packagesViewImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginRight="8dp"
                 tools:src="@drawable/ic_search_black_24dp" />
 
         </LinearLayout>

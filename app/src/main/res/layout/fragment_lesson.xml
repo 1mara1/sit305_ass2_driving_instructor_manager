@@ -20,16 +20,16 @@
 
             <TextView
                 android:id="@+id/lessonTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:text="New Lesson"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <Button
                 android:id="@+id/saveLesson"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FF6E40"
@@ -47,6 +47,10 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="@string/student" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
             <EditText
                 android:id="@+id/studentLessonEditText"
@@ -76,14 +80,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="tap to enter start time"
                 android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="End" />
+                android:text="End"
+                android:textAlignment="viewStart" />
 
             <EditText
                 android:id="@+id/timeEndLessonEditText"
@@ -91,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="tap to enter end time"
+                android:hint="@string/pick_time"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -135,7 +139,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Amount"
                 android:inputType="number" />
         </LinearLayout>
 
