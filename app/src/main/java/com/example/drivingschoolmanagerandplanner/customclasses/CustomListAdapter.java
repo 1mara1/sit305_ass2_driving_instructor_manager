@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class CustomListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context context;
     private ArrayList<T> records;
@@ -16,7 +16,7 @@ public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
 
     public abstract void onBindData(RecyclerView.ViewHolder holder, T val);
 
-    public ListAdapter(Context context, ArrayList<T> records){
+    public CustomListAdapter(Context context, ArrayList<T> records){
         this.context = context;
         this.records = records;
     }
@@ -32,9 +32,14 @@ public abstract class ListAdapter<T> extends RecyclerView.Adapter<RecyclerView.V
         onBindData(holder, records.get(position));
     }
 
+
     @Override
     public int getItemCount() {
-        return records.size();
+        if(records != null) {
+            if (records.size() > 0)
+                return records.size();
+        }
+        return 0;
     }
 
     public void addItems( ArrayList<T> savedCardItemz){

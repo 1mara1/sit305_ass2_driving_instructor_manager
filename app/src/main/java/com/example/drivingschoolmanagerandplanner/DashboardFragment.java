@@ -1,5 +1,6 @@
 package com.example.drivingschoolmanagerandplanner;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -118,7 +119,8 @@ public class DashboardFragment extends Fragment {
         testsViewImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetFragment(new ListFragment());
+               // SetListFragment(new ListFragment());
+                SetListFragment(view,"tests");
             }
         });
 
@@ -134,4 +136,17 @@ public class DashboardFragment extends Fragment {
         fragmentTransaction.replace(R.id.FormsFrameLayout, fragment).addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
+    private void SetListFragment(View view,  String fragment){
+        Intent intent = new Intent( getContext(), ListActivity.class);
+        intent.putExtra("STARTACTIVITY", fragment);
+        startActivity(intent);
+    }
+
+    // idea https://stackoverflow.com/questions/14247954/communicating-between-a-fragment-and-an-activity-best-practices
+    public interface UpdateFrag {
+        void updatefrag();
+    }
+    //end idea https://stackoverflow.com/questions/14247954/communicating-between-a-fragment-and-an-activity-best-practices
 }
