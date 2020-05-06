@@ -1,17 +1,20 @@
 package com.example.drivingschoolmanagerandplanner.models;
 
+import java.util.Date;
+
 public class DrivingTest {
 
-    Student studentDriver;
-    String date, time, location;
-    int bookingNumber;
-    boolean result;
+    private Student studentDriver;
+    private String location;
+    private Date date, time;
+    private int bookingNumber;
+    private boolean result;
 
-    public DrivingTest(Student studentDriver, String date, String time, String location, int bookingNumber, boolean result) {
+    public DrivingTest(Student studentDriver, String location, Date date, Date time, int bookingNumber, boolean result) {
         this.studentDriver = studentDriver;
+        this.location = location;
         this.date = date;
         this.time = time;
-        this.location = location;
         this.bookingNumber = bookingNumber;
         this.result = result;
     }
@@ -20,16 +23,16 @@ public class DrivingTest {
         return studentDriver;
     }
 
-    public String getDate() {
+    public String getLocation() {
+        return location;
+    }
+
+    public Date getDate() {
         return date;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
-    }
-
-    public String getLocation() {
-        return location;
     }
 
     public int getBookingNumber() {

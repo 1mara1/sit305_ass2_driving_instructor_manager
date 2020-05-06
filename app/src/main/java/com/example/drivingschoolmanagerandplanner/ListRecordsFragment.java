@@ -110,21 +110,22 @@ public class ListRecordsFragment<T> extends Fragment {
             }
 
             Student student;
-            DrivingTest test;
+            ArrayList<DrivingTest> test;
 
             @Override
             public void onBindData(RecyclerView.ViewHolder holder, T val) {
-                Log.d(TAG, "onBindData: " + val);
+                Log.d(TAG, "onBindData:  val " + val);
 
                 ItemViewHolder itemHolder = (ItemViewHolder)holder;
 
-                if(val.equals(test)) {
+                if(val instanceof DrivingTest) {
 
 
                     DrivingTest test = (DrivingTest) val;
-                    Log.d(TAG, "onBindData: " + test.getClass() );
+                    Log.d(TAG, "onBindData:  test" + test.getClass() );
                     itemHolder.rightOfImage.setText(test.getStudentDriver().getFullName());
-                    itemHolder.belowImageLeft.setText(test.getDate());
+                    itemHolder.belowImageLeft.setText(test.getDate().toString());
+                    itemHolder.belowImageCentre.setText(test.getTime().toString());
                     itemHolder.belowImageRight.setText(test.getLocation());
                 }
 

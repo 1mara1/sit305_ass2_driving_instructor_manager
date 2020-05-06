@@ -1,76 +1,40 @@
 package com.example.drivingschoolmanagerandplanner;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import java.util.Objects;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashboardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DashboardFragment extends Fragment {
 
-
-    ImageView lessonImageView;
-    ImageView studentImageView;
-    ImageView testImageView;
-    ImageView packageImageView;
-    ImageButton testsViewImageButton;
-
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ImageView lessonImageView;
+    private ImageView studentImageView;
+    private ImageView testImageView;
+    private ImageView packageImageView;
+    private ImageButton testsViewImageButton;
+    private ImageButton studentsViewImageButton;
+    private ImageButton packagesImageButton;
+    private ImageButton lessonsImageButton;
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+           // mParam1 = getArguments().getString(ARG_PARAM1);
+           // mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -79,14 +43,26 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        initialiseWidgetReferences(view);
+        setImageViewButtonsOncLickListeners();
 
+        return view;
+    }
+
+    private void initialiseWidgetReferences(View view) {
         studentImageView = (ImageView)view.findViewById(R.id.studentsAddImageButton);
         lessonImageView = (ImageView)view.findViewById(R.id.lessonAddImageButton);
         testImageView = (ImageView)view.findViewById(R.id.testsAddImageButton);
         packageImageView = (ImageView)view.findViewById(R.id.packagesAddImageButton);
-
         testsViewImageButton = (ImageButton)view.findViewById(R.id.testsViewImageButton);
+        packagesImageButton = (ImageButton)view.findViewById(R.id.packagesViewImageButton);
+        studentsViewImageButton = (ImageButton)view.findViewById(R.id.studentsViewImageButton);
+        lessonsImageButton = (ImageButton)view.findViewById(R.id.lessonViewImageButton);
 
+    }
+
+
+    private void setImageViewButtonsOncLickListeners() {
 
         studentImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,13 +95,34 @@ public class DashboardFragment extends Fragment {
         testsViewImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // SetListFragment(new ListFragment());
-                SetListFragment(view,"tests");
+                // SetListFragment(new ListFragment());
+                SetListFragment("tests");
             }
         });
 
+        studentsViewImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SetListFragment(new ListFragment());
+                SetListFragment("students");
+            }
+        });
 
-        return view;
+        lessonsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SetListFragment(new ListFragment());
+                SetListFragment("lessons");
+            }
+        });
+
+        packagesImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // SetListFragment(new ListFragment());
+                SetListFragment("packages");
+            }
+        });
     }
 
 
@@ -138,7 +135,7 @@ public class DashboardFragment extends Fragment {
     }
 
 
-    private void SetListFragment(View view,  String fragment){
+    private void SetListFragment(String fragment){
         Intent intent = new Intent( getContext(), ListActivity.class);
         intent.putExtra("STARTACTIVITY", fragment);
         startActivity(intent);
