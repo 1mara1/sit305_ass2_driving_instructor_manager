@@ -10,6 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.example.drivingschoolmanagerandplanner.models.DrivingTest;
+import com.example.drivingschoolmanagerandplanner.models.Lesson;
+import com.example.drivingschoolmanagerandplanner.models.Package;
+import com.example.drivingschoolmanagerandplanner.models.Student;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -23,6 +30,12 @@ public class DashboardFragment extends Fragment {
     private ImageButton studentsViewImageButton;
     private ImageButton packagesImageButton;
     private ImageButton lessonsImageButton;
+
+
+    final ArrayList<DrivingTest> tests = new ArrayList<>();
+    final ArrayList<Student> students = new ArrayList<>();
+    final ArrayList<Package> packages = new ArrayList<>();
+    final ArrayList<Lesson> lessons = new ArrayList<>();
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -111,16 +124,16 @@ public class DashboardFragment extends Fragment {
         lessonsImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // SetListFragment(new ListFragment());
-                SetListFragment("lessons");
+                SetFragment(new ListRecordsFragment<Lesson>(lessons));
+//                SetListFragment("lessons");
             }
         });
 
         packagesImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // SetListFragment(new ListFragment());
-                SetListFragment("packages");
+                SetFragment(new ListRecordsFragment<Package>(packages));
+               // SetListFragment("packages");
             }
         });
     }

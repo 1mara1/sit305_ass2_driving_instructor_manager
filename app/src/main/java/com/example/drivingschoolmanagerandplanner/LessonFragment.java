@@ -1,19 +1,25 @@
 package com.example.drivingschoolmanagerandplanner;
 
+import android.app.ActionBar;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 
 /**
@@ -23,9 +29,10 @@ import java.util.Calendar;
  */
 public class LessonFragment extends Fragment {
 
+    private static final String TAG = "LessonFragment" ;
     TextView timeTextView;
-    EditText timeStartEditText;
-    EditText timeEndEditText;
+    Button timeStartButton;
+    Button timeEndButton;
     TimePickerDialog picker;
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,9 +65,17 @@ public class LessonFragment extends Fragment {
 //        return fragment;
 //    }
 //
-//    @Override
+
+
+
+   @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       setHasOptionsMenu(true);
+
+
+        //        ActionBar ab = (getActivity()).getActionBar();
+//        ab.setTitle("New Lesson");
 //        if (getArguments() != null) {
 ////            mParam1 = getArguments().getString(ARG_PARAM1);
 ////            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -70,15 +85,19 @@ public class LessonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         final View view =  inflater.inflate(R.layout.fragment_lesson, container, false);
 
+        ActionBar actionBar = getActivity().getActionBar();
+        Log.d(TAG, "onCreateView: " + actionBar);
+
         // Inflate the layout for this fragment
 
-        timeStartEditText = (EditText)view.findViewById(R.id.timeStartLessonEditText);
-        timeEndEditText = (EditText)view.findViewById(R.id.timeEndLessonEditText);
-        timeStartEditText.setInputType(InputType.TYPE_NULL);
-        timeStartEditText.setOnClickListener(new View.OnClickListener() {
+        timeStartButton = (Button)view.findViewById(R.id.timeStartLessonButton);
+        timeEndButton = (Button)view.findViewById(R.id.timeEndLessonButton);
+        timeStartButton.setInputType(InputType.TYPE_NULL);
+        timeStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -92,14 +111,14 @@ public class LessonFragment extends Fragment {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                timeStartEditText.setText(sHour + ":" + sMinute);
+                                timeStartButton.setText("Start "+ sHour + ":" + sMinute);
                             }
                         }, hour, minutes, true);
                 picker.show();
             }
         });
 
-        timeEndEditText.setOnClickListener(new View.OnClickListener() {
+        timeEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -113,7 +132,7 @@ public class LessonFragment extends Fragment {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                timeEndEditText.setText(sHour + ":" + sMinute);
+                                timeEndButton.setText("End "+sHour + ":" + sMinute);
                             }
                         }, hour, minutes, true);
                 picker.show();

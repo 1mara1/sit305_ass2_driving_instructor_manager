@@ -129,13 +129,14 @@ public class ListRecordsFragment<T> extends Fragment {
                     itemHolder.belowImageRight.setText(test.getLocation());
                 }
 
-                if(val.equals(student)){
-                    Student test = (Student) val;
-                    itemHolder.rightOfImage.setText(test.getFullName());
-                    itemHolder.belowImageLeft.setText(test.getPhone());
-                    itemHolder.belowImageRight.setText(test.getSuburb());
+                if(val instanceof Student){
+                    Student student = (Student) val;
+                    Log.d(TAG, "onBindData:  student" + student.getClass() );
+                    itemHolder.rightOfImage.setText(student.getFullName());
+                    itemHolder.belowImageLeft.setText(student.getAddressLine());
+                    itemHolder.belowImageCentre.setText(student.getSuburb());
+                    itemHolder.belowImageRight.setText(student.getState());
                 }
-
             };
 
 
