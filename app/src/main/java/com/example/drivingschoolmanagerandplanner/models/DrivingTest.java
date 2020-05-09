@@ -4,42 +4,40 @@ import java.util.Date;
 
 public class DrivingTest {
 
-    private Student studentDriver;
-    private String location;
-    private Date date, time;
-    private int bookingNumber;
-    private boolean result;
+    private String location, date, time, bookingNumber;
+    private int result, studentId;
 
-    public DrivingTest(Student studentDriver, String location, Date date, Date time, int bookingNumber, boolean result) {
-        this.studentDriver = studentDriver;
+    public DrivingTest(String location, String date, String time, String bookingNumber, int result, int studentId) {
         this.location = location;
         this.date = date;
         this.time = time;
         this.bookingNumber = bookingNumber;
         this.result = result;
-    }
-
-    public Student getStudentDriver() {
-        return studentDriver;
+        this.studentId = studentId;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public int getBookingNumber() {
+    public String getBookingNumber() {
         return bookingNumber;
     }
 
-    public boolean isResult() {
+    public int getResult() {
         return result;
     }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
 }

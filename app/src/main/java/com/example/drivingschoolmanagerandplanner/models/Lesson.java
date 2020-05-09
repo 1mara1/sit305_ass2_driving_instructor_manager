@@ -6,18 +6,19 @@ import androidx.annotation.Nullable;
 import java.util.Date;
 
 public class Lesson {
-    private Student student;
+   // private Student student;
     private Package packageLesson;
     private String notes;
     private float amount;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private String meetingAddress;
-    private boolean isPackageLesson; // true for package lesson
+    private int isPackageLesson; // true for package lesson
+    private int studentId;
 
 
-    public Lesson(Student student, Package packageLesson, String notes, float amount, Date startTime, Date endTime, String meetingAddress, boolean isPackageLesson) {
-        this.student = student;
+    public Lesson(String notes, float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
+       // this.student = student;
         this.packageLesson = packageLesson;
         this.notes = notes;
         this.amount = amount;
@@ -25,11 +26,12 @@ public class Lesson {
         this.endTime = endTime;
         this.meetingAddress = meetingAddress;
         this.isPackageLesson = isPackageLesson;
+        this.studentId = studentId;
     }
 
-    public Student getStudent() {
-        return student;
-    }
+   // public Student getStudent() {
+     //   return student;
+   // }
 
     public Package getPackageLesson() {
         return packageLesson;
@@ -39,15 +41,23 @@ public class Lesson {
         return notes;
     }
 
+    public int getIsPackageLesson() {
+        return isPackageLesson;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
     public float getAmount() {
         return amount;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
@@ -55,7 +65,4 @@ public class Lesson {
         return meetingAddress;
     }
 
-    public boolean isPackageLesson() {
-        return isPackageLesson;
-    }
 }

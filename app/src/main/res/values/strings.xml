@@ -34,4 +34,6 @@
     <string name="add_lesson">Add Lesson</string>
     <string name="add_student">Add Student</string>
     <string name="favorite">Favorite</string>
+    <string name="dollar_sign">$</string>
+    <string name="lessons">lessons</string>
 </resources>

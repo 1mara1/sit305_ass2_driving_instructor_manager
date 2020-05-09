@@ -51,19 +51,6 @@ public class ListActivity extends AppCompatActivity implements DashboardFragment
         e.getTime();
         e.add(Calendar.HOUR, 2);
 
-        tests.add(new DrivingTest(new Student(), "",  s.getTime(), e.getTime(),1223, true));
-        tests.add(new DrivingTest(new Student(), "",  s.getTime(), e.getTime(),1223, true));
-//        tests.add(new DrivingTest(new Student("Sonia", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Bill", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Anna", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Jeffey", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Elena", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Fred", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Jade", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("JS", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("So", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Billian", "Smith"), "March","12:00","Liverpool",1223, true));
-//        tests.add(new DrivingTest(new Student("Anneta", "Smith"), "March","12:00","Liverpool",1223, true));
 
         updatefrag();
     }
@@ -77,8 +64,8 @@ public class ListActivity extends AppCompatActivity implements DashboardFragment
         if(fragStr.equals("tests"))
             frag = new ListRecordsFragment<DrivingTest>(tests);
 
-        if(fragStr.equals("students"))
-            frag = new ListRecordsFragment<Student>(getStudentsFromDB());
+//        if(fragStr.equals("students"))
+//            frag = new ListRecordsFragment<Student>(getStudentsFromDB());
 
         if(fragStr.equals("lessons"))
             frag = new ListRecordsFragment<Lesson>(lessons);
@@ -93,14 +80,14 @@ public class ListActivity extends AppCompatActivity implements DashboardFragment
     }
 
 
-    private ArrayList<Student> getStudentsFromDB(){
-        DbHandler db = new DbHandler(this);
-        ArrayList<Student> userList = db.GetStudents();
-        Log.d(TAG, "getStudentsFromDB: number of records " + userList.size());
-        db.close();
-        return  userList;
-
-    }
+//    private ArrayList<Student> getStudentsFromDB(){
+//        DbHandler db = new DbHandler(this);
+//        ArrayList<Student> userList = db.GetStudents();
+//        Log.d(TAG, "getStudentsFromDB: number of records " + userList.size());
+//        db.close();
+//        return  userList;
+//
+//    }
 
 
 
