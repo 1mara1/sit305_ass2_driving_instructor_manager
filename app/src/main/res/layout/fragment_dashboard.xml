@@ -246,11 +246,11 @@
         android:layout_weight="1"
         android:background="#FF6E40"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintEnd_toStartOf="@+id/studentsViewImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/lessonListForStudentImageButton"
         app:layout_constraintTop_toBottomOf="@+id/divider46" />
 
     <ImageButton
-        android:id="@+id/studentsViewImageButton"
+        android:id="@+id/lessonListForStudentImageButton"
         style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

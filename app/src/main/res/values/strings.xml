@@ -10,7 +10,7 @@
     <string name="mobile_hint">Enter you mobile</string>
     <string name="email_email">somebody@example.com</string>
     <string name="email_hint">Enter you lastname</string>
-    <string name="first_name_hint">Enter your lastname</string>
+    <string name="first_name_hint">Enter your firstname</string>
     <string name="last_name_hint">Enter your lastname</string>
     <string name="addressLine">Address</string>
     <string name="address_line_hint">1-10 12 Example St</string>
@@ -36,4 +36,12 @@
     <string name="favorite">Favorite</string>
     <string name="dollar_sign">$</string>
     <string name="lessons">lessons</string>
+    <string name="amount">Amount</string>
+    <string name="number_of_lessons">Lessons #</string>
+    <string name="date_purchased">Date</string>
+    <string name="state">State</string>
+    <string name="enter_state">Enter State</string>
+    <string name="add_driving_test">Test</string>
+    <string name="add_package">Add Package</string>
+    <string name="name">Name</string>
 </resources>

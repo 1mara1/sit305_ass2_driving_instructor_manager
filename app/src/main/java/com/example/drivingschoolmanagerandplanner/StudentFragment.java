@@ -1,5 +1,6 @@
 package com.example.drivingschoolmanagerandplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,8 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.drivingschoolmanagerandplanner.data.DbHandler;
+import com.example.drivingschoolmanagerandplanner.models.Student;
 
 
 ///**
@@ -20,39 +25,15 @@ import com.example.drivingschoolmanagerandplanner.data.DbHandler;
 public class StudentFragment extends Fragment {
 
 
+    Button saveLessonButton;
+    EditText lastnameEditText, firstNameEditText, mobileEditText, emailEditText, addressLineEditText, suburbEditText, stateEditText, postcodeEditText, countryEditText;
+    long row;
 
+    private static final String TAG = "StudentFragment";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
-
-    private static final String TAG = "StudentFragment" ;
     public StudentFragment() {
         // Required empty public constructor
     }
-//
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment StudentFragment.
-//     */
-//    // TODO: Rename and change types and number of parameters
-//    public static StudentFragment newInstance(String param1, String param2) {
-//        StudentFragment fragment = new StudentFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,17 +49,105 @@ public class StudentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_student, container, false);
+        InitialiseEditTexts(view);
+
+        saveLessonButton = (Button) view.findViewById(R.id.saveLessonButton);
+        saveLessonButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Log.d(TAG, "onClick: trying to save student");
+
+                if (Validate()) {
+                    // we have all fields filled in
+                    // create a student object from the editText
+                    Student s = SaveStudent(view);
+                    // save the student to database
+                    row = saveStudentToDb(s.getFirstName(), s.getLastName(), s.getPhone(), s.getEmail(), s.getAddressLine(), s.getSuburb(), s.getState(), s.getPostcode(), s.getCountry());
+                    DisplayMessage("Student saved!");
+
+                    Log.d(TAG, "onClick: student row in db " + row);
+
+                    LoadStudentDashboard(row);
+                    return;
+                }
+                DisplayMessage("Please fill in all fields!");
+            }
+        });
 
 
-
-        return  view;
+        return view;
     }
 
-    private void SaveStudent(){
+
+    private void InitialiseEditTexts(View view) {
+        firstNameEditText = (EditText) view.findViewById(R.id.firstNameEditText);
+        lastnameEditText = (EditText) view.findViewById(R.id.lastnameEditText);
+        mobileEditText = (EditText) view.findViewById(R.id.mobileEditText);
+        emailEditText = (EditText) view.findViewById(R.id.emailEditText);
+        addressLineEditText = (EditText) view.findViewById(R.id.addressLineEditText);
+        suburbEditText = (EditText) view.findViewById(R.id.suburbEditText);
+        stateEditText = (EditText) view.findViewById(R.id.stateEditText);
+        postcodeEditText = (EditText) view.findViewById(R.id.postcodeEditText);
+        countryEditText = (EditText) view.findViewById(R.id.countryEditText);
+    }
+
+
+    private Student SaveStudent(View view) {
+        return new Student(
+                firstNameEditText.getText().toString(),
+                lastnameEditText.getText().toString(),
+                Integer.parseInt(mobileEditText.getText().toString()),
+                emailEditText.getText().toString(),
+                addressLineEditText.getText().toString(),
+                suburbEditText.getText().toString(),
+                stateEditText.getText().toString(),
+                Integer.parseInt(postcodeEditText.getText().toString()),
+                countryEditText.getText().toString()
+        );
+    }
+
+
+    private long saveStudentToDb(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country) {
         DbHandler dbHandler = new DbHandler(getActivity());
-        long rowId =   dbHandler.InsertStudentDetails("Maya","Ole",0415356652 , "eda@gmail.com","104 reilly St.","Liverpool", "NSW", 2170, "AU");
+        long rowId = dbHandler.InsertStudentDetails(firstName, lastName, phone, email, addressLine, suburb, state, postcode, country);
         Log.d(TAG, "getStudentsFromDB: row Id " + rowId);
-        dbHandler.close();
+
+        return rowId;
     }
+
+    private void DisplayMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private Boolean Validate() {
+
+        String[] values = {firstNameEditText.getText().toString(),
+                lastnameEditText.getText().toString(),
+                mobileEditText.getText().toString(),
+                emailEditText.getText().toString(),
+                addressLineEditText.getText().toString(),
+                suburbEditText.getText().toString(),
+                stateEditText.getText().toString(),
+                postcodeEditText.getText().toString(),
+                countryEditText.getText().toString()
+        };
+
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].isEmpty())
+                return false;
+        }
+        return true;
+    }
+
+    private void LoadStudentDashboard(long row) {
+        //https://www.codexpedia.com/android/passing-data-to-activity-and-fragment-in-android/
+        Intent studentDashboardIntent = new Intent(getContext(), StudentDashboardActivity.class);
+        Bundle args = new Bundle();
+        args.putLong("studentId", row);
+        studentDashboardIntent.putExtras(args);
+        startActivity(studentDashboardIntent);
+    }
+
 
 }

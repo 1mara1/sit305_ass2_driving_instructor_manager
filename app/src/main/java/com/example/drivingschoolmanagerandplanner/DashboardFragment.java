@@ -72,7 +72,7 @@ public class DashboardFragment extends Fragment {
         packageImageView = (ImageView)view.findViewById(R.id.packagesAddImageButton);
         testsViewImageButton = (ImageButton)view.findViewById(R.id.testsViewImageButton);
         packagesImageButton = (ImageButton)view.findViewById(R.id.packagesViewImageButton);
-        studentsViewImageButton = (ImageButton)view.findViewById(R.id.studentsViewImageButton);
+        studentsViewImageButton = (ImageButton)view.findViewById(R.id.lessonListForStudentImageButton);
         lessonsImageButton = (ImageButton)view.findViewById(R.id.lessonViewImageButton);
 
     }

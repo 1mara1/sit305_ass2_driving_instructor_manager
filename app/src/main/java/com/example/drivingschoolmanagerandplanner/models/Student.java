@@ -7,14 +7,9 @@ public class Student {
     private String tempPostcode;
     private int phone, postcode;
 
-    Student student;
-
-    public Student(){}
-//
-//    public Student(Student student){
-//        this.student = student;
-//    }
-
+    public Student(){
+        // Needed for dbHandler to create a student from GetStudentById()
+    }
 
     public Student(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country ) {
         this.firstName = firstName;
@@ -64,6 +59,50 @@ public class Student {
         return lastName;
     }
 
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddressLine(String addressLine) {
+        this.addressLine = addressLine;
+    }
+
+    public void setSuburb(String suburb) {
+        this.suburb = suburb;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setTempPostcode(String tempPostcode) {
+        this.tempPostcode = tempPostcode;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
+    }
+
+    public void setPostcode(int postcode) {
+        this.postcode = postcode;
+    }
+
     public int getPhone() {
         return phone;
     }
@@ -91,6 +130,7 @@ public class Student {
     public int getPostcode() {
         return postcode;
     }
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
@@ -99,8 +139,9 @@ public class Student {
         return studentId;
     }
 
-    public void setFullName(String firstname, String lastname) {
+    public Student setFullName(String firstname, String lastname) {
         this.firstName = firstname;
         this.lastName = lastname;
+        return  this;
     }
 }

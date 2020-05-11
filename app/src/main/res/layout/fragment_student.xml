@@ -29,7 +29,7 @@
                 android:textColor="#FF6E40" />
 
             <Button
-                android:id="@+id/saveLesson"
+                android:id="@+id/saveLessonButton"
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,31 +50,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/lastnameTextView"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_name" />
-
-                <EditText
-                    android:id="@+id/lastnameEditText"
-                    style="@style/Base.Widget.MaterialComponents.TextInputEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="@string/last_name_hint"
-                    android:inputType="text"
-                    android:text=""
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:typeface="normal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:orientation="horizontal">
-
-                <TextView
                     android:id="@+id/firstnameTextView"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
@@ -88,6 +63,32 @@
                     android:ems="10"
                     android:hint="@string/first_name_hint"
                     android:inputType="textPersonName"
+                    android:text=""
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:typeface="normal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lastNameTextView"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_name" />
+
+                <EditText
+                    android:id="@+id/lastnameEditText"
+                    style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/last_name_hint"
+                    android:inputType="text"
                     android:text=""
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:typeface="normal" />
@@ -211,6 +212,33 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/stateTextView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/state" />
+
+            <EditText
+                android:id="@+id/stateEditText"
+                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/enter_state"
+                android:inputType="text"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:typeface="normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:orientation="horizontal">
+
+            <TextView
                 android:id="@+id/postcodeTextView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
@@ -249,7 +277,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number"
+                android:inputType="text"
                 android:text="@string/country_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:typeface="normal" />
