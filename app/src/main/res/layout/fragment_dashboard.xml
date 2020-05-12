@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/studentTotalTextView"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -40,10 +40,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/studentTotalTextView" />
 
     <TextView
-        android:id="@+id/textView227"
+        android:id="@+id/lessonsTotalTextView"
         android:layout_width="110dp"
         android:layout_height="0dp"
         android:layout_marginTop="40dp"
@@ -55,7 +55,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/studentTotalTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -70,10 +70,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView27"
-        app:layout_constraintTop_toBottomOf="@+id/textView227" />
+        app:layout_constraintTop_toBottomOf="@+id/lessonsTotalTextView" />
 
     <TextView
-        android:id="@+id/textView217"
+        android:id="@+id/packagesTotalTextView"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -96,10 +96,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView217" />
+        app:layout_constraintTop_toBottomOf="@+id/packagesTotalTextView" />
 
     <TextView
-        android:id="@+id/textVisew217"
+        android:id="@+id/testsTotalTextView"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -117,12 +117,12 @@
         android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="Packages"
+        android:text="Tests"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textVisew217" />
+        app:layout_constraintTop_toBottomOf="@+id/testsTotalTextView" />
 
     <View
         android:id="@+id/divider7"

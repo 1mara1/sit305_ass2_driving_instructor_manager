@@ -1,10 +1,11 @@
+// The CustomListAdapter is an abstract generic class overrides the RecyclerView.Adapter of type viewHolder
+// the implementation is done by the listRecordFragment
+
 package com.example.drivingschoolmanagerandplanner.customclasses;
 
 import android.content.Context;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public abstract class CustomListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -32,7 +33,6 @@ public abstract class CustomListAdapter<T> extends RecyclerView.Adapter<Recycler
         onBindData(holder, records.get(position));
     }
 
-
     @Override
     public int getItemCount() {
         if(records != null) {
@@ -40,11 +40,6 @@ public abstract class CustomListAdapter<T> extends RecyclerView.Adapter<Recycler
                 return records.size();
         }
         return 0;
-    }
-
-    public void addItems( ArrayList<T> savedCardItemz){
-        records = savedCardItemz;
-        this.notifyDataSetChanged();
     }
 
     public T getItem(int position){

@@ -6,12 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.example.drivingschoolmanagerandplanner.models.DrivingTest;
 import com.example.drivingschoolmanagerandplanner.models.Lesson;
-import com.example.drivingschoolmanagerandplanner.models.Package;
 import com.example.drivingschoolmanagerandplanner.models.Student;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,11 +17,10 @@ public class DbHandler extends SQLiteOpenHelper {
 
     //region constants
     private static final int DB_VERSION = 2;
+    private static final String DB_NAME = "manageInstructordb";
 
     // Students
-    private static final String DB_NAME = "manageInstructordb";
     private static final String TABLE_Students = "students";
-
     private static final String STUDENT_ID = "id";
     private static final String FIRST_NAME = "firstname";
     private static final String LAST_NAME = "lastname";
@@ -46,7 +42,6 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String END_TIME = "endTime";
     private static final String AMOUNT = "amount";
 
-
     // Driving Tests
     private static final String TABLE_Driving_Tests = "tests";
     private static final String TEST_ID = "testId";
@@ -58,11 +53,11 @@ public class DbHandler extends SQLiteOpenHelper {
 
     //endregion constants
 
-
-
     public DbHandler(Context context){
-        super(context,DB_NAME, null, DB_VERSION);
+        super(context, DB_NAME, null, DB_VERSION);
     }
+
+   // region onCreate(SQLiteDatabase db)
     @Override
     public void onCreate(SQLiteDatabase db){
         String CREATE_TABLE_STUDENTS = "CREATE TABLE " + TABLE_Students + "("
@@ -116,12 +111,13 @@ public class DbHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // endregion onCreate(SQLiteDatabase db)
+
 //https://www.tutlane.com/tutorial/android/android-sqlite-database-with-examples
 
-   //region Student queries
-
+    //region Student queries
     // Adding new Student
-   public long InsertStudentDetails(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country) {
+   public long insertStudentDetails(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country) {
        // Get the database to writable mode
        SQLiteDatabase db = this.getWritableDatabase();
 
@@ -144,8 +140,23 @@ public class DbHandler extends SQLiteOpenHelper {
        return  newRowId;
    }
 
+//   public int GetNewlyCreatedStudentId(long newRowId) {
+//
+//       SQLiteDatabase db = this.getReadableDatabase();
+//      // String query = "SELECT id FROM " + TABLE_Students + " ORDER BY "+ STUDENT_ID +" DESC LIMIT 1 ";
+//
+//       Cursor cursor = db.rawQuery(query, null);
+//    //   int s = cursor.getColumnIndex("id");
+//
+//       Log.d(TAG, "GetNewlyCreatedStudentId: column name " + cursor.getInt(cursor.getColumnIndex(STUDENT_ID)));
+//
+//       return cursor.getInt(cursor.getInt(cursor.getColumnIndex(STUDENT_ID)));
+//   }
+
+
     // Get a list of Student Details
-    public ArrayList<Student> GetStudents(){
+//https://stackoverflow.com/questions/6234171/how-do-i-update-an-android-sqlite-database-column-value-to-null-using-contentval
+    public ArrayList<Student> getStudents(){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Student> studentList = new ArrayList<>();
@@ -177,8 +188,8 @@ public class DbHandler extends SQLiteOpenHelper {
         return  studentList;
     }
 
-    // Get Student Details based on studentId
-    public ArrayList<HashMap<String, String>> GetStudentsById(int studentId){
+//    // Get Student Details based on studentId
+    public ArrayList<HashMap<String, String>> getStudentsById(int studentId){
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<HashMap<String, String>> studentList = new ArrayList<>();
         String query = "SELECT firstname, lastname, phone, email, addressLine, suburb, state, postcode, country FROM "+ TABLE_Students;
@@ -216,21 +227,27 @@ public class DbHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         Student student = new Student();
-        student.setFullName(cursor.getString(cursor.getColumnIndex(FIRST_NAME)), cursor.getString(cursor.getColumnIndex(LAST_NAME)));
-      //  student.setFullName(c.getColumnName(1), c.getColumnName(2));
-
+        student.setFullName(cursor.getString(cursor.getColumnIndex(FIRST_NAME))
+                , cursor.getString(cursor.getColumnIndex(LAST_NAME)));
+        student.setAddress(cursor.getString(cursor.getColumnIndex(ADDRESS_LINE))
+               , cursor.getString(cursor.getColumnIndex(SUBURB))
+               , cursor.getString(cursor.getColumnIndex(STATE))
+               , cursor.getInt(cursor.getColumnIndex(POSTCODE))
+               , cursor.getString(cursor.getColumnIndex(COUNTRY)));
+        student.setContactDetails(  cursor.getInt(cursor.getColumnIndex(PHONE))
+               , cursor.getString(cursor.getColumnIndex(EMAIL)));
         return student;
     }
 
-    // Delete User Details
-    public void DeleteStudent(int studentId){
+    // Delete Student Details
+    public void deleteStudent(int studentId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_Students, STUDENT_ID+" = ?",new String[]{String.valueOf(studentId)});
         db.close();
     }
 
-    // Update User Details
-    public int UpdateStudentDetails(String firstName, String lastName, String phone, String email, String addressLine, String suburb, String state, String postcode, String country, int studentId){
+    // Update Student Details
+    public int updateStudentDetails(String firstName, String lastName, String phone, String email, String addressLine, String suburb, String state, String postcode, String country, int studentId){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         cValues.put(FIRST_NAME, firstName);
@@ -271,10 +288,7 @@ public class DbHandler extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    //Student student, Package packageLesson, String notes, float amount, Date startTime, Date endTime, String meetingAddress, boolean isPackageLesson
-
-//Student student, Package packageLesson, String notes, float amount, Date startTime, Date endTime, String meetingAddress, boolean isPackageLesson
-    public ArrayList<Lesson> GetLessons() {
+    public ArrayList<Lesson> getLessons() {
         // AddingNewLessons
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -301,15 +315,15 @@ public class DbHandler extends SQLiteOpenHelper {
         return lessonsList;
     }
 
-    // Delete User Details
-    public void DeleteLesson(int lessonId){
+    // Delete Lesson Details
+    public void deleteLesson(int lessonId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_Lessons, LESSON_ID+" = ?",new String[]{String.valueOf(lessonId)});
         db.close();
     }
 
-    // Update User Details
-    public int UpdateLessonDetails(String notes, Float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
+    // Update Lesson Details
+    public int updateLessonDetails(String notes, Float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         cValues.put(NOTES, notes);
@@ -326,7 +340,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     //region Driving Tests
 
-    public long InsertTestDetails(String location, String testDate, String testTime, String bookingNumber, int result, int studentId) {
+    public long insertTestDetails(String location, String testDate, String testTime, String bookingNumber, int result, int studentId) {
         // Get the database to writable mode
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -346,7 +360,7 @@ public class DbHandler extends SQLiteOpenHelper {
         return newRowId;
     }
 
-    public ArrayList<DrivingTest> GetDrivingTests() {
+    public ArrayList<DrivingTest> getDrivingTests() {
         // AddingNewLessons
         //DrivingTest(String location, String date, String time, int bookingNumber, int result, int studentId) {
 
@@ -374,14 +388,14 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     // Delete User Details
-    public void DeleteTest(int testId){
+    public void deleteTest(int testId){
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_Driving_Tests, TEST_ID+" = ?",new String[]{String.valueOf(testId)});
         db.close();
     }
 
     // Update User Details
-    public int UpdateTestDetails(String location, String testDate, String testTime, int bookingNumber, int result, int studentId, int testId) {
+    public int updateTestDetails(String location, String testDate, String testTime, int bookingNumber, int result, int studentId, int testId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
@@ -403,8 +417,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
 
 ////region Packages Queries
-//    public ArrayList<Package> GetPackages() { return null;
-//    }
+//
 ////endregion
 
 }

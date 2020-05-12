@@ -1,3 +1,7 @@
+// Student fragment is used to take student details from input boxes
+// saves the details to the database
+// loads the student details fragment passing in the row number
+
 package com.example.drivingschoolmanagerandplanner;
 
 import android.content.Intent;
@@ -13,8 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
 import com.example.drivingschoolmanagerandplanner.data.DbHandler;
 import com.example.drivingschoolmanagerandplanner.models.Student;
+
+import java.util.Objects;
 
 
 ///**
@@ -38,10 +45,6 @@ public class StudentFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-////            mParam1 = getArguments().getString(ARG_PARAM1);
-////            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
@@ -68,18 +71,20 @@ public class StudentFragment extends Fragment {
 
                     Log.d(TAG, "onClick: student row in db " + row);
 
-                    LoadStudentDashboard(row);
+                    Intent intent = StaticHelpers.LoadActivityWithStudentId(getContext(), StudentDashboardActivity.class, row);
+                    Objects.requireNonNull(getContext()).startActivity(intent);
+
                     return;
                 }
                 DisplayMessage("Please fill in all fields!");
             }
         });
-
-
         return view;
     }
 
 
+
+    // region private methods
     private void InitialiseEditTexts(View view) {
         firstNameEditText = (EditText) view.findViewById(R.id.firstNameEditText);
         lastnameEditText = (EditText) view.findViewById(R.id.lastnameEditText);
@@ -110,15 +115,17 @@ public class StudentFragment extends Fragment {
 
     private long saveStudentToDb(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country) {
         DbHandler dbHandler = new DbHandler(getActivity());
-        long rowId = dbHandler.InsertStudentDetails(firstName, lastName, phone, email, addressLine, suburb, state, postcode, country);
+        long rowId = dbHandler.insertStudentDetails(firstName, lastName, phone, email, addressLine, suburb, state, postcode, country);
         Log.d(TAG, "getStudentsFromDB: row Id " + rowId);
 
         return rowId;
     }
 
+
     private void DisplayMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
+
 
     private Boolean Validate() {
 
@@ -139,15 +146,5 @@ public class StudentFragment extends Fragment {
         }
         return true;
     }
-
-    private void LoadStudentDashboard(long row) {
-        //https://www.codexpedia.com/android/passing-data-to-activity-and-fragment-in-android/
-        Intent studentDashboardIntent = new Intent(getContext(), StudentDashboardActivity.class);
-        Bundle args = new Bundle();
-        args.putLong("studentId", row);
-        studentDashboardIntent.putExtras(args);
-        startActivity(studentDashboardIntent);
-    }
-
-
+    // endregion private methods
 }

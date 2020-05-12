@@ -8,7 +8,7 @@
     tools:context=".StudentDetailsTopFragment">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
@@ -20,44 +20,45 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/studentNameTextView"
-            android:layout_width="100dp"
+            android:id="@+id/fullNameTopTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="New Student"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="#FF6E40" />
+            android:textColor="#FF6E40"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/linearLayout3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/linearLayout2">-->
 
 
-        <TextView
-            android:id="@+id/TextView1"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/name" />
+<!--        <TextView-->
+<!--            android:id="@+id/TextView1"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/name" />-->
 
-        <TextView
-            android:id="@+id/firstNameTextView"
-            style="@style/Base.Widget.MaterialComponents.TextInputEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="gddf"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+<!--        <TextView-->
+<!--            android:id="@+id/fullNameTopTextView2"-->
+<!--            style="@style/Base.Widget.MaterialComponents.TextInputEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:ems="10"-->
+<!--            android:text="gddf"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
 
     <LinearLayout
@@ -79,7 +80,7 @@
 
 
         <TextView
-            android:id="@+id/mobileTextView"
+            android:id="@+id/mobileTopTextView"
             style="@style/Base.Widget.MaterialComponents.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -107,7 +108,7 @@
             android:text="@string/email" />
 
         <TextView
-            android:id="@+id/emailTextView"
+            android:id="@+id/emailTopTextView"
             style="@style/Base.Widget.MaterialComponents.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +135,7 @@
             android:text="@string/addressLine" />
 
         <TextView
-            android:id="@+id/addressTextView"
+            android:id="@+id/addressTopTextView"
             style="@style/Base.Widget.MaterialComponents.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

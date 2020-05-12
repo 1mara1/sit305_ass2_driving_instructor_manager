@@ -6,6 +6,7 @@ public class Student {
     private String firstName, lastName, email, addressLine, suburb, state, country ;
     private String tempPostcode;
     private int phone, postcode;
+    private String address;
 
     public Student(){
         // Needed for dbHandler to create a student from GetStudentById()
@@ -103,6 +104,21 @@ public class Student {
         this.postcode = postcode;
     }
 
+
+    public void setAddress(String addressLine, String suburb, String state, int postcode, String country){
+        setAddressLine(addressLine);
+        setSuburb(suburb);
+        setState(state);
+        setPostcode(postcode);
+        setCountry(country);
+    }
+
+    public void setContactDetails(int phone, String email){
+        setPhone(phone);
+        setEmail(email);
+    }
+
+
     public int getPhone() {
         return phone;
     }
@@ -113,6 +129,22 @@ public class Student {
 
     public String getAddressLine() {
         return addressLine;
+    }
+
+    public String getAddress(){
+        StringBuilder s = new StringBuilder();
+        s.append(addressLine);
+        s.append(", ");
+        s.append(suburb);
+        s.append(", ");
+        s.append(state);
+        s.append(", ");
+        s.append(postcode);
+        s.append(", ");
+        s.append(country);
+        address = s.toString();
+        
+     return address;
     }
 
     public String getSuburb() {

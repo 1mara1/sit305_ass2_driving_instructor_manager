@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
+
 import java.util.Calendar;
 
 
@@ -50,8 +52,8 @@ public class PackageFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_package, container, false);
-        timeTextView = (TextView)view.findViewById(R.id.timeTextView);
-        timeEditText = (EditText)view.findViewById(R.id.timeEditText);
+        timeTextView = StaticHelpers.initialiseTextView(view, R.id.timeTextView);
+       // timeEditText = (EditText)view.findViewById(R.id.timeEditText);
         timeEditText.setInputType(InputType.TYPE_NULL);
         timeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +69,7 @@ public class PackageFragment extends Fragment {
                             new TimePickerDialog.OnTimeSetListener() {
                                 @Override
                                 public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                    timeEditText.setText(sHour + ":" + sMinute);
+                                    timeEditText.setText("Purchased" + sHour + ":" + sMinute);
                                 }
                             }, hour, minutes, true);
                     picker.show();

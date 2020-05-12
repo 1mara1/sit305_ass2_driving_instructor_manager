@@ -27,67 +27,58 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
-
-public class ListActivity extends AppCompatActivity implements DashboardFragment.UpdateFrag {
-    private static final String TAG = "ListActivity";
-    String fragStr;
-    final ArrayList<DrivingTest> tests = new ArrayList<>();
-    final ArrayList<Student> students = new ArrayList<>();
-    final ArrayList<Package> packages = new ArrayList<>();
-    final ArrayList<Lesson> lessons = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-
-        //TODO: get records from database
-
-        Calendar s = Calendar.getInstance();
-        s.getTime();
-        s.add(Calendar.HOUR, 1);
-
-        Calendar e = Calendar.getInstance();
-        e.getTime();
-        e.add(Calendar.HOUR, 2);
-
-
-        updatefrag();
-    }
-
-
-    public void updatefrag() {
-       Intent intent = getIntent();
-       fragStr =  intent.getStringExtra("STARTACTIVITY");
-        Fragment frag = new ListRecordsFragment<DrivingTest>(tests);
-
-        if(fragStr.equals("tests"))
-            frag = new ListRecordsFragment<DrivingTest>(tests);
-
-//        if(fragStr.equals("students"))
-//            frag = new ListRecordsFragment<Student>(getStudentsFromDB());
-
-        if(fragStr.equals("lessons"))
-            frag = new ListRecordsFragment<Lesson>(lessons);
-
-        if(fragStr.equals("packages"))
-            frag = new ListRecordsFragment<Package>(packages);
-
-            FragmentManager manager = this.getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.ListFrameLayout, frag).addToBackStack(null);
-            fragmentTransaction.commit();
-    }
-
-
-//    private ArrayList<Student> getStudentsFromDB(){
-//        DbHandler db = new DbHandler(this);
-//        ArrayList<Student> userList = db.GetStudents();
-//        Log.d(TAG, "getStudentsFromDB: number of records " + userList.size());
-//        db.close();
-//        return  userList;
+//implements DashboardFragment.UpdateFrag
+public class ListActivity extends AppCompatActivity  {
+//    private static final String TAG = "ListActivity";
+//    String fragStr;
+//    final ArrayList<DrivingTest> tests = new ArrayList<>();
+//    final ArrayList<Student> students = new ArrayList<>();
+//    final ArrayList<Package> packages = new ArrayList<>();
+//    final ArrayList<Lesson> lessons = new ArrayList<>();
 //
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_list);
+//
+//        //TODO: get records from database
+//
+//        Calendar s = Calendar.getInstance();
+//        s.getTime();
+//        s.add(Calendar.HOUR, 1);
+//
+//        Calendar e = Calendar.getInstance();
+//        e.getTime();
+//        e.add(Calendar.HOUR, 2);
+//
+//
+//        updatefrag();
 //    }
+//
+//
+//    public void updatefrag() {
+//       Intent intent = getIntent();
+//       fragStr =  intent.getStringExtra("STARTACTIVITY");
+//        Fragment frag = new ListRecordsFragment<DrivingTest>(tests);
+//
+//        if(fragStr.equals("tests"))
+//            frag = new ListRecordsFragment<DrivingTest>(tests);
+//
+////        if(fragStr.equals("students"))
+////            frag = new ListRecordsFragment<Student>(getStudentsFromDB());
+//
+//        if(fragStr.equals("lessons"))
+//            frag = new ListRecordsFragment<Lesson>(lessons);
+//
+//        if(fragStr.equals("packages"))
+//            frag = new ListRecordsFragment<Package>(packages);
+//
+//            FragmentManager manager = this.getSupportFragmentManager();
+//            FragmentTransaction fragmentTransaction = manager.beginTransaction();
+//            fragmentTransaction.replace(R.id.ListFrameLayout, frag).addToBackStack(null);
+//            fragmentTransaction.commit();
+//    }
+
 
 
 
