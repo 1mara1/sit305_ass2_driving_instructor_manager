@@ -69,7 +69,7 @@ public class DashboardFragment extends Fragment {
         packageAddButton = StaticHelpers.initialiseImageButton(view, R.id.packagesAddImageButton);
         testsListButton = StaticHelpers.initialiseImageButton(view, R.id.testsViewImageButton);
         packagesListButton = StaticHelpers.initialiseImageButton(view, R.id.packagesViewImageButton);
-        studentsListButton = StaticHelpers.initialiseImageButton(view, R.id.lessonListForStudentImageButton);
+        studentsListButton = StaticHelpers.initialiseImageButton(view, R.id.numberLessonsTextView);
         lessonsListButton = StaticHelpers.initialiseImageButton(view, R.id.lessonViewImageButton);
         studentTotalTextView = StaticHelpers.initialiseTextView(view, R.id.studentTotalTextView);
         packagesTotalTextView = StaticHelpers.initialiseTextView(view, R.id.packagesTotalTextView);

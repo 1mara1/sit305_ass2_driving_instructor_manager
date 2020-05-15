@@ -49,17 +49,19 @@
                 android:layout_height="wrap_content"
                 android:text="@string/student" />
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
             <EditText
                 android:id="@+id/studentLessonEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|textCapSentences" />
+
+<!--            <Spinner-->
+<!--                android:id="@+id/studentLessonEditText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
+
 
         </LinearLayout>
 
@@ -69,11 +71,26 @@
             android:layout_margin="10dp"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView112"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Booking time" />
+
+
+            <Button
+                android:id="@+id/dayLessonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:hint="Day" />
+
             <Button
                 android:id="@+id/timeStartLessonButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="16dp"
                 android:hint="Start" />
 
             <Button
@@ -99,12 +116,35 @@
                 android:text="Location" />
 
             <EditText
-                android:id="@+id/locationLessonEditText"
+                android:id="@+id/meetingLocationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Enter pick up location"
+                android:inputType="textPersonName|textCapSentences" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Comments" />
+
+            <EditText
+                android:id="@+id/commentsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Enter comments"
                 android:inputType="textPersonName|textCapSentences" />
         </LinearLayout>
 
@@ -127,40 +167,6 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number|phone" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:background="?android:attr/listDivider" />
-
-            <TextView
-                android:id="@+id/studentLessonTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="dynamic student Name"
-                android:textColor="#3F51B5" />
-
-            <TextView
-                android:id="@+id/phoneLessonTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="dynamic phone"
-                android:textColor="#3F51B5" />
-
-            <TextView
-                android:id="@+id/addressLessonTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="dynamic address"
-                android:textColor="#3F51B5" />
 
             <View
                 android:id="@+id/divider2"
@@ -170,5 +176,47 @@
                 android:background="?android:attr/listDivider" />
 
         </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <View-->
+<!--                android:id="@+id/divider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:background="?android:attr/listDivider" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/studentLessonTextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="dynamic student Name"-->
+<!--                android:textColor="#3F51B5" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/phoneLessonTextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="dynamic phone"-->
+<!--                android:textColor="#3F51B5" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/addressLessonTextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="dynamic address"-->
+<!--                android:textColor="#3F51B5" />-->
+
+<!--            <View-->
+<!--                android:id="@+id/divider2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:background="?android:attr/listDivider" />-->
+
+<!--        </LinearLayout>-->
     </LinearLayout>
 </FrameLayout>

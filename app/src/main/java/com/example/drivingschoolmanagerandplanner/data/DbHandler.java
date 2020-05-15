@@ -16,7 +16,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TAG = "DbHandler" ;
 
     //region constants
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 3;
     private static final String DB_NAME = "manageInstructordb";
 
     // Students
@@ -41,6 +41,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String START_TIME = "startTime";
     private static final String END_TIME = "endTime";
     private static final String AMOUNT = "amount";
+    private static final String DAY = "day";
 
     // Driving Tests
     private static final String TABLE_Driving_Tests = "tests";
@@ -50,6 +51,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TEST_TIME = "testTime";
     private static final String BOOKING_NUMBER = "bookingNumber";
     private static final String RESULT = "result";
+
 
     //endregion constants
 
@@ -79,6 +81,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 + LESSON_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + NOTES + " TEXT,"
                 + AMOUNT + " REAL,"
+                + DAY + " TEXT,"
                 + START_TIME + " TEXT,"
                 + END_TIME + " TEXT,"
                 + MEETING_ADDRESS + " TEXT,"
@@ -139,20 +142,6 @@ public class DbHandler extends SQLiteOpenHelper {
 
        return  newRowId;
    }
-
-//   public int GetNewlyCreatedStudentId(long newRowId) {
-//
-//       SQLiteDatabase db = this.getReadableDatabase();
-//      // String query = "SELECT id FROM " + TABLE_Students + " ORDER BY "+ STUDENT_ID +" DESC LIMIT 1 ";
-//
-//       Cursor cursor = db.rawQuery(query, null);
-//    //   int s = cursor.getColumnIndex("id");
-//
-//       Log.d(TAG, "GetNewlyCreatedStudentId: column name " + cursor.getInt(cursor.getColumnIndex(STUDENT_ID)));
-//
-//       return cursor.getInt(cursor.getInt(cursor.getColumnIndex(STUDENT_ID)));
-//   }
-
 
     // Get a list of Student Details
 //https://stackoverflow.com/questions/6234171/how-do-i-update-an-android-sqlite-database-column-value-to-null-using-contentval
@@ -267,7 +256,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
    //region Lessons Queries
 
-    public long InsertLessonDetails(String notes, Float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
+    public long insertLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
         // Get the database to writable mode
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -275,6 +264,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ContentValues cValues = new ContentValues();
         cValues.put(NOTES, notes);
         cValues.put(AMOUNT, amount);
+        cValues.put(DAY, day);
         cValues.put(START_TIME, startTime);
         cValues.put(END_TIME, endTime);
         cValues.put(MEETING_ADDRESS, meetingAddress);
@@ -289,11 +279,11 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     public ArrayList<Lesson> getLessons() {
-        // AddingNewLessons
+
 
         SQLiteDatabase db = this.getWritableDatabase();
         ArrayList<Lesson> lessonsList = new ArrayList<>();
-        String query = "SELECT notes, amount, startTime, endTime, meetingAddress, isPackageLesson, id FROM " + TABLE_Lessons;
+        String query = "SELECT notes, amount, day, startTime, endTime, meetingAddress, isPackageLesson, id FROM " + TABLE_Lessons;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -302,6 +292,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 Lesson student = new Lesson(
                         cursor.getString(cursor.getColumnIndex(NOTES))
                         , cursor.getFloat(cursor.getColumnIndex(AMOUNT))
+                        , cursor.getString(cursor.getColumnIndex(DAY))
                         , cursor.getString(cursor.getColumnIndex(START_TIME))
                         , cursor.getString(cursor.getColumnIndex(END_TIME))
                         , cursor.getString(cursor.getColumnIndex(MEETING_ADDRESS))
@@ -323,11 +314,12 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     // Update Lesson Details
-    public int updateLessonDetails(String notes, Float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
+    public int updateLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         cValues.put(NOTES, notes);
         cValues.put(AMOUNT, amount);
+        cValues.put(DAY, day);
         cValues.put(START_TIME, startTime);
         cValues.put(END_TIME, endTime);
         cValues.put(MEETING_ADDRESS, meetingAddress);

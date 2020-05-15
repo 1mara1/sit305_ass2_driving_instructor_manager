@@ -7,30 +7,40 @@
     android:background="#FFFFFF"
     tools:context=".StudentDetailsBottomFragment">
 
+    <TextView
+        android:id="@+id/TextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Details"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#F00099BF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/numberOfLessonsTextView"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Lessons"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#00BFA5"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/TextView" />
 
-
-    <ImageButton
-        android:id="@+id/lessonListForStudentImageButton"
-        style="@android:style/Widget.Holo.ImageButton"
-        android:layout_width="32dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:background="#FF6E40"
-        android:src="@android:drawable/ic_menu_info_details"
+    <TextView
+        android:id="@+id/numberLessonsTextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="43dp"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toEndOf="@+id/numberOfLessonsTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,50 +49,48 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Packages"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#00BFA5"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberOfLessonsTextView" />
 
-    <ImageButton
-        android:id="@+id/packageListForStudentImageButton"
-        style="@android:style/Widget.Holo.ImageButton"
-        android:layout_width="32dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="11dp"
-        android:layout_weight="1"
-        android:background="#FF6E40"
-        android:src="@android:drawable/ic_menu_info_details"
+    <TextView
+        android:id="@+id/numberPackagesTextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toEndOf="@+id/numberOfPackages"
-        app:layout_constraintTop_toBottomOf="@+id/lessonListForStudentImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/numberLessonsTextView" />
 
     <TextView
         android:id="@+id/numberOfTests"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Driving Tests"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="#00BFA5"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numberOfPackages" />
 
-    <ImageButton
-        android:id="@+id/testsListForStudentImageButton"
-        style="@android:style/Widget.Holo.ImageButton"
-        android:layout_width="32dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="13dp"
-        android:layout_weight="1"
-        android:background="#FF6E40"
-        android:src="@android:drawable/ic_menu_info_details"
+    <TextView
+        android:id="@+id/numberTestsTextView"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:text="0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="#F00099BF"
         app:layout_constraintStart_toEndOf="@+id/numberOfTests"
-        app:layout_constraintTop_toBottomOf="@+id/packageListForStudentImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/numberPackagesTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

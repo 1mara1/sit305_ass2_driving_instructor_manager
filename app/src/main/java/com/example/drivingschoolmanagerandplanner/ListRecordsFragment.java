@@ -33,6 +33,7 @@ import java.util.Objects;
 public class ListRecordsFragment<T> extends Fragment {
 
     private static final String TAG = "ListFragment" ;
+    public static final String STUDENT_ID = "student_id" ;
     CustomListAdapter<T> adapter;
     RecyclerView recyclerView;
     TextView listTitleTextView;
@@ -47,6 +48,8 @@ public class ListRecordsFragment<T> extends Fragment {
         this.data = data;
     }
 
+    public ListRecordsFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,12 +131,13 @@ public class ListRecordsFragment<T> extends Fragment {
                         Log.d(TAG, "onClick: ---- " + view.getId() + " position " + position);
 
                         if (value instanceof Student) {
-                            Intent intent = StaticHelpers.LoadActivityWithStudentId(getContext(), StudentDashboardActivity.class,position + 1);
+                            Bundle args = new Bundle(); args.putLong(STUDENT_ID, position + 1);
+                            Intent intent = StaticHelpers.LoadActivityWithBundle(getContext(), StudentDashboardActivity.class, args);
                             Objects.requireNonNull(getContext()).startActivity(intent);
                         }
 
                         if (value instanceof Lesson)
-                           StaticHelpers.LoadFragmentWithStudentId(new LessonFragment(), R.id.FormsFrameLayout, position + 1);
+                           StaticHelpers.LoadFragmentWithId(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.FormsFrameLayout, position + 1);
 
 
                         if (value instanceof DrivingTest) {

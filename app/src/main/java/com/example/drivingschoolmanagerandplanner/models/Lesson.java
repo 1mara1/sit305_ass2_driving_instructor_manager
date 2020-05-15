@@ -6,7 +6,8 @@ import androidx.annotation.Nullable;
 import java.util.Date;
 
 public class Lesson {
-   // private Student student;
+    private String day;
+    // private Student student;
     private Package packageLesson;
     private String notes;
     private float amount;
@@ -17,11 +18,12 @@ public class Lesson {
     private int studentId;
 
 
-    public Lesson(String notes, float amount, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
+    public Lesson(String notes, float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
        // this.student = student;
         this.packageLesson = packageLesson;
         this.notes = notes;
         this.amount = amount;
+        this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
         this.meetingAddress = meetingAddress;
@@ -51,6 +53,10 @@ public class Lesson {
 
     public float getAmount() {
         return amount;
+    }
+
+    public String getDay() {
+        return day;
     }
 
     public String getStartTime() {

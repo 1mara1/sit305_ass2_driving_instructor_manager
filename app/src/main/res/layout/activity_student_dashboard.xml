@@ -20,31 +20,39 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/studentDashboardTabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="#FFAB40"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabIndicatorColor="#FFFFFF">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/studentDetailsTab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_group_collapse_15"
+                android:text="@string/student" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/addLessonTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_search_black_24dp"
+                android:icon="@drawable/ic_mr_button_connected_08_dark"
                 android:text="@string/add_lesson" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/addTestTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_search_black_24dp"
+                android:icon="@drawable/ic_unchecked_checkbox"
                 android:text="@string/add_driving_test" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/addPackageTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_search_black_24dp"
+                android:icon="@drawable/ic_audiotrack_dark"
                 android:text="@string/add_package" />
 
         </com.google.android.material.tabs.TabLayout>
@@ -62,7 +70,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
     </FrameLayout>
-
 
     <View
         android:id="@+id/divider5"

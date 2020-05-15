@@ -57,7 +57,7 @@ public class DrivingTestFragment extends Fragment {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                                timeStartEditText.setText("Start:" + sHour + ":" + sMinute);
+                                timeStartEditText.setText("START:" + sHour + ":" + sMinute);
                             }
                         }, hour, minutes, true);
                 picker.show();

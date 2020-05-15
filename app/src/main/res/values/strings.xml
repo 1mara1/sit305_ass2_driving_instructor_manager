@@ -41,7 +41,7 @@
     <string name="date_purchased">Date</string>
     <string name="state">State</string>
     <string name="enter_state">Enter State</string>
-    <string name="add_driving_test">Test</string>
+    <string name="add_driving_test">Add Test</string>
     <string name="add_package">Add Package</string>
     <string name="name">Name</string>
 </resources>

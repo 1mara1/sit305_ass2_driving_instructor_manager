@@ -31,6 +31,8 @@ import java.util.Objects;
 // */
 public class StudentFragment extends Fragment {
 
+    public static final String ID = "id";
+    public static final String STUDENT_ID = "student_id";
 
     Button saveLessonButton;
     EditText lastnameEditText, firstNameEditText, mobileEditText, emailEditText, addressLineEditText, suburbEditText, stateEditText, postcodeEditText, countryEditText;
@@ -59,9 +61,21 @@ public class StudentFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                String[] values = {firstNameEditText.getText().toString(),
+                        lastnameEditText.getText().toString(),
+                        mobileEditText.getText().toString(),
+                        emailEditText.getText().toString(),
+                        addressLineEditText.getText().toString(),
+                        suburbEditText.getText().toString(),
+                        stateEditText.getText().toString(),
+                        postcodeEditText.getText().toString(),
+                        countryEditText.getText().toString()
+                };
+
+
                 Log.d(TAG, "onClick: trying to save student");
 
-                if (Validate()) {
+                if (StaticHelpers.validate(values)) {
                     // we have all fields filled in
                     // create a student object from the editText
                     Student s = SaveStudent(view);
@@ -71,7 +85,8 @@ public class StudentFragment extends Fragment {
 
                     Log.d(TAG, "onClick: student row in db " + row);
 
-                    Intent intent = StaticHelpers.LoadActivityWithStudentId(getContext(), StudentDashboardActivity.class, row);
+                    Bundle args = new Bundle(); args.putLong(STUDENT_ID, row);
+                    Intent intent = StaticHelpers.LoadActivityWithBundle(getContext(), StudentDashboardActivity.class, args);
                     Objects.requireNonNull(getContext()).startActivity(intent);
 
                     return;
@@ -127,24 +142,6 @@ public class StudentFragment extends Fragment {
     }
 
 
-    private Boolean Validate() {
 
-        String[] values = {firstNameEditText.getText().toString(),
-                lastnameEditText.getText().toString(),
-                mobileEditText.getText().toString(),
-                emailEditText.getText().toString(),
-                addressLineEditText.getText().toString(),
-                suburbEditText.getText().toString(),
-                stateEditText.getText().toString(),
-                postcodeEditText.getText().toString(),
-                countryEditText.getText().toString()
-        };
-
-        for (int i = 0; i < values.length; i++) {
-            if (values[i].isEmpty())
-                return false;
-        }
-        return true;
-    }
     // endregion private methods
 }
