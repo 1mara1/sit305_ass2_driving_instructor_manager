@@ -30,7 +30,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class ListRecordsFragment<T> extends Fragment {
+public class ListItemsFragment<T> extends Fragment {
 
     private static final String TAG = "ListFragment" ;
     public static final String STUDENT_ID = "student_id" ;
@@ -43,12 +43,12 @@ public class ListRecordsFragment<T> extends Fragment {
     private ArrayList<T> data; // populate a list of provided model class
 
     // constructor to create an array based on model class
-    public ListRecordsFragment(ArrayList<T> data) {
+    public ListItemsFragment(ArrayList<T> data) {
         // Required empty public constructor
         this.data = data;
     }
 
-    public ListRecordsFragment() {
+    public ListItemsFragment() {
     }
 
     @Override
@@ -141,6 +141,7 @@ public class ListRecordsFragment<T> extends Fragment {
 
 
                         if (value instanceof DrivingTest) {
+                          //  StaticHelpers.LoadFragmentWithId(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new DrivingTestFragment(), R.id.FormsFrameLayout, position + 1);
 //                         StaticHelpers.LoadFragmentWithStudentId(new LessonFragment(), R.id.FormsFrameLayout, position + 1);
                         }
 

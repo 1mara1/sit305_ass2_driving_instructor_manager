@@ -157,11 +157,6 @@ public class LessonFragment extends Fragment {
 
     }
 
-    private void GetDateFromUser(View view) {
-
-
-    }
-
     private void GetUserTime(final Button buttonText) {
         //https://www.tutlane.com/tutorial/android/android-timepicker-with-examples
         final Calendar cldr = Calendar.getInstance();
@@ -205,7 +200,7 @@ public class LessonFragment extends Fragment {
                 StaticHelpers.tryParse(amountEditText.getText().toString()),
                 dayLessonButton.getText().toString(),
                 timeStartButton.getText().toString(),
-                timeStartButton.getText().toString(),
+                timeEndButton.getText().toString(),
                 meetingLocationEditText.getText().toString(),
                 0,
                 id

@@ -44,4 +44,9 @@
     <string name="add_driving_test">Add Test</string>
     <string name="add_package">Add Package</string>
     <string name="name">Name</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="edit_student">Edit Student</string>
+    <string name="delete_student">Delete Student</string>
+    <string name="view_dashboard">View Dashboard</string>
 </resources>

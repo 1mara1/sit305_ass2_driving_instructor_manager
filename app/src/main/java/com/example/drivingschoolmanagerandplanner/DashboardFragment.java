@@ -112,21 +112,21 @@ public class DashboardFragment extends Fragment {
         testsListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new ListRecordsFragment<DrivingTest>(drivingTests), "Driving Tests");
+                setFragment(new ListItemsFragment<DrivingTest>(drivingTests), "Driving Tests");
             }
         });
 
         studentsListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new ListRecordsFragment<Student>(students),"Students");
+                setFragment(new ListItemsFragment<Student>(students),"Students");
             }
         });
 
         lessonsListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setFragment(new ListRecordsFragment<Lesson>(lessons),"Lessons");
+                setFragment(new ListItemsFragment<Lesson>(lessons),"Lessons");
             }
         });
 

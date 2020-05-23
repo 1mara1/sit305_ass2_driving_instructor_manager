@@ -10,11 +10,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,22 +21,26 @@ import android.widget.TextView;
 
 import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
 
-import java.security.Permission;
 import java.util.Objects;
 
 
 public class StudentDetailsTopFragment extends Fragment {
 
-    private static final String TAG = "StudentDetailsTopFragm" ;
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    // region Declarations
 
+    private static final String TAG = "StudentDetailsTopFragm";
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
     TextView fullNameTopTextView, mobileTextView, emailTextView, addressTextView;
     String name, email, address;
     int mobile;
+    //endregion Declarations
 
+    // Constructor
     public StudentDetailsTopFragment() {
         // Required empty public constructor
     }
+
+    // region Overrides
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,11 +52,9 @@ public class StudentDetailsTopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student_details_top, container, false);
-
         InitialiseWidgets(view);
         SetStudentDetailsFromActivity();
         setStudentDetailsToTextView();
-
 
         mobileTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +70,9 @@ public class StudentDetailsTopFragment extends Fragment {
                 SendMessage();
             }
         });
+
+        OpenMap(addressTextView.getText().toString());
+
         return view;
     }
 
@@ -83,7 +86,7 @@ public class StudentDetailsTopFragment extends Fragment {
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    Log.d(TAG, "onRequestPermissionsResult: permission was granted  " );
+                    Log.d(TAG, "onRequestPermissionsResult: permission was granted  ");
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobile));
                     startActivity(intent);
                 } else {
@@ -97,6 +100,8 @@ public class StudentDetailsTopFragment extends Fragment {
             // permissions this app might request.
         }
     }
+
+    // endregion overrides
 
     // region private methods
     private void InitialiseWidgets(View view) {
@@ -161,5 +166,19 @@ public class StudentDetailsTopFragment extends Fragment {
         Intent shareIntent = Intent.createChooser(sendIntent, null);
         startActivity(shareIntent);
     }
+
+    private void OpenMap(final String address) {
+        addressTextView.setOnClickListener(new View.OnClickListener() {
+            String studentAddress = address;
+            @Override
+            public void onClick(View view) {
+                //code based at https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address
+                Intent searchAddress = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + studentAddress));
+                startActivity(searchAddress);
+                // end idea how-can-i-find-the-latitude-and-longitude-from-address
+            }
+        });
+    }
+
     // endregion private methods
 }

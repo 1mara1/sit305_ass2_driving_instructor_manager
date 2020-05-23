@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.drivingschoolmanagerandplanner.LessonFragment;
+import com.example.drivingschoolmanagerandplanner.R;
 
 import java.util.Objects;
 
@@ -73,6 +74,16 @@ public class StaticHelpers {
         transaction.commit();
     }
 
+    public static void LoadFragmentWithBundle(FragmentTransaction transaction, Fragment targetFragment, int resourceId, Bundle bundle) {
+        targetFragment.setArguments(bundle);
+
+//         Replace the fragment_container view with this fragment,
+        transaction.replace(resourceId, targetFragment);
+        transaction.addToBackStack(null);
+        // Commit the transaction
+        transaction.commit();
+    }
+
     public static void LoadFragment(FragmentTransaction transaction,  int resourceId, Fragment targetFragment) {
 //         Replace the fragment_container view with this fragment,
         transaction.replace(resourceId, targetFragment);
@@ -81,6 +92,7 @@ public class StaticHelpers {
         transaction.commit();
     }
 
+
     public static Boolean validate(String[] values) {
         for (int i = 0; i < values.length; i++) {
             if (values[i].isEmpty())
@@ -88,6 +100,9 @@ public class StaticHelpers {
         }
         return true;
     }
+
+
+
 
     public static Float tryParse(String text) {
         try {

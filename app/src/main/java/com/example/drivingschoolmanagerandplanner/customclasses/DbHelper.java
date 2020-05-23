@@ -23,6 +23,7 @@ public class DbHelper {
         return db.GetStudentById((int)id);
     }
 
+
     public static ArrayList<Student> getStudents(Activity activity){
         DbHandler db = getDbHandler(activity);
         return db.getStudents();
@@ -37,4 +38,10 @@ public class DbHelper {
         DbHandler db = getDbHandler(activity);
         return db.getDrivingTests();
     }
+
+    public static int updateStudent(Activity activity, String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country, int studentId){
+        DbHandler db = getDbHandler(activity);
+      return  db.updateStudentDetails(firstName, lastName,  String.valueOf(phone), email, addressLine, suburb, state, String.valueOf(postcode), country,  studentId);
+    }
+
 }

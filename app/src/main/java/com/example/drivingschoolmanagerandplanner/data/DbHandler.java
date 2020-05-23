@@ -254,7 +254,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
     // endregion Student queries
 
-   //region Lessons Queries
+    //region Lessons Queries
 
     public long insertLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
         // Get the database to writable mode

@@ -4,6 +4,7 @@
 
 package com.example.drivingschoolmanagerandplanner;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,8 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.drivingschoolmanagerandplanner.customclasses.DbHelper;
 import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
 import com.example.drivingschoolmanagerandplanner.data.DbHandler;
 import com.example.drivingschoolmanagerandplanner.models.Student;
@@ -36,9 +39,13 @@ public class StudentFragment extends Fragment {
 
     Button saveLessonButton;
     EditText lastnameEditText, firstNameEditText, mobileEditText, emailEditText, addressLineEditText, suburbEditText, stateEditText, postcodeEditText, countryEditText;
+    TextView studentFormTitleTextView;
+
     long row;
 
     private static final String TAG = "StudentFragment";
+    private String firstName, lastName, email, addressLine, suburb,state, country, title ;
+int mobile, postcode;
 
     public StudentFragment() {
         // Required empty public constructor
@@ -57,7 +64,14 @@ public class StudentFragment extends Fragment {
         InitialiseEditTexts(view);
 
         saveLessonButton = (Button) view.findViewById(R.id.saveLessonButton);
+        editStudentDetailsFromActivity();
+
+        setEditText();
+
+        //Log.d(TAG, "onCreateView: phone " + mobile + " email " + email);
+
         saveLessonButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
 
@@ -75,13 +89,29 @@ public class StudentFragment extends Fragment {
 
                 Log.d(TAG, "onClick: trying to save student");
 
+
+
+
                 if (StaticHelpers.validate(values)) {
                     // we have all fields filled in
                     // create a student object from the editText
                     Student s = SaveStudent(view);
                     // save the student to database
-                    row = saveStudentToDb(s.getFirstName(), s.getLastName(), s.getPhone(), s.getEmail(), s.getAddressLine(), s.getSuburb(), s.getState(), s.getPostcode(), s.getCountry());
-                    DisplayMessage("Student saved!");
+
+                    if(title.contains(getResources().getString(R.id.edit_student)))
+                        Log.d(TAG, "onClick: ");
+
+
+                    if(title.contains("Update Student")){
+                        int count  = DbHelper.updateStudent(getActivity(), firstName, lastName, mobile, email, addressLine, suburb, state, postcode, country,(int)row);
+                        Log.d(TAG, "onClick: update student "+ count);
+                        DisplayMessage("Student updated!" );
+                    }
+                    else {
+                        row = saveStudentToDb(s.getFirstName(), s.getLastName(), s.getPhone(), s.getEmail(), s.getAddressLine(), s.getSuburb(), s.getState(), s.getPostcode(), s.getCountry());
+                        DisplayMessage("Student saved!");
+                    }
+
 
                     Log.d(TAG, "onClick: student row in db " + row);
 
@@ -110,6 +140,7 @@ public class StudentFragment extends Fragment {
         stateEditText = (EditText) view.findViewById(R.id.stateEditText);
         postcodeEditText = (EditText) view.findViewById(R.id.postcodeEditText);
         countryEditText = (EditText) view.findViewById(R.id.countryEditText);
+        studentFormTitleTextView = (TextView) view.findViewById(R.id.studentFormTitleTextView);
     }
 
 
@@ -139,6 +170,33 @@ public class StudentFragment extends Fragment {
 
     private void DisplayMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    private void editStudentDetailsFromActivity(){
+        firstName = getArguments().getString(StudentDashboardActivity.FIRST_NAME);
+        lastName = getArguments().getString(StudentDashboardActivity.LAST_NAME);
+        mobile = getArguments().getInt(StudentDashboardActivity.MOBILE);
+        email = getArguments().getString(StudentDashboardActivity.EMAIL);
+        addressLine = getArguments().getString(StudentDashboardActivity.ADDRESS_LINE);
+        suburb = getArguments().getString(StudentDashboardActivity.SUBURB);
+        state = getArguments().getString(StudentDashboardActivity.STATE);
+        country = getArguments().getString(StudentDashboardActivity.COUNTRY);
+        postcode = getArguments().getInt(StudentDashboardActivity.POSTCODE);
+        row =  getArguments().getLong(StudentDashboardActivity.STUDENT_ID);
+        title = getArguments().getString(StudentDashboardActivity.TITLE);
+    }
+
+    private void setEditText(){
+        firstNameEditText.setText(firstName);
+        lastnameEditText.setText(lastName);
+        mobileEditText.setText(String.valueOf(mobile));
+        emailEditText.setText(email);
+        addressLineEditText.setText(addressLine);
+        suburbEditText.setText(suburb);
+        postcodeEditText.setText(String.valueOf(postcode));
+        stateEditText.setText(state);
+        countryEditText.setText(country);
+        studentFormTitleTextView.setText(title);
     }
 
 

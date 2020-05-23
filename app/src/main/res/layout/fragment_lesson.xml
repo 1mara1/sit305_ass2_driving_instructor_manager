@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/lessonTextView"
+                android:id="@+id/studentFormTitleTextView"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -45,7 +45,7 @@
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="70dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="@string/student" />
 
@@ -73,11 +73,28 @@
 
             <TextView
                 android:id="@+id/textView112"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:text="Booking time" />
+                android:text="Booking time"
+                android:textAlignment="center"
+                android:textColor="#AAAAAA" />
 
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView100"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Date" />
 
             <Button
                 android:id="@+id/dayLessonButton"
@@ -85,6 +102,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:hint="Day" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView150"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="Times" />
 
             <Button
                 android:id="@+id/timeStartLessonButton"
@@ -99,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:hint="End"
                 android:inputType="textPersonName" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +141,7 @@
 
             <TextView
                 android:id="@+id/textView10"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:text="Location" />
@@ -133,7 +164,7 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="wrap_content"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:text="Comments" />
@@ -156,7 +187,7 @@
 
             <TextView
                 android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:text="Amount" />
