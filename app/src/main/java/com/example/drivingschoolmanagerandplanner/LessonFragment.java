@@ -90,14 +90,14 @@ public class LessonFragment extends Fragment {
         timeStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetUserTime(timeStartButton);
+                GetUserTime(timeStartButton, "Start ");
             }
         });
 
         timeEndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetUserTime(timeEndButton);
+                GetUserTime(timeEndButton, "End ");
             }
         });
 
@@ -157,7 +157,7 @@ public class LessonFragment extends Fragment {
 
     }
 
-    private void GetUserTime(final Button buttonText) {
+    private void GetUserTime(final Button buttonText, final String startEnd ) {
         //https://www.tutlane.com/tutorial/android/android-timepicker-with-examples
         final Calendar cldr = Calendar.getInstance();
         int hour = cldr.get(Calendar.HOUR_OF_DAY);
@@ -177,7 +177,7 @@ public class LessonFragment extends Fragment {
                         {
                             am_pm="AM";
                         }
-                        buttonText.setText("START " + sHour + ":" + sMinute + " "+ am_pm);
+                        buttonText.setText(startEnd + sHour + ":" + sMinute + " "+ am_pm);
                     }
                 }, hour, minutes, true);
         picker.show();
@@ -187,7 +187,7 @@ public class LessonFragment extends Fragment {
         dayLessonButton = StaticHelpers.initialiseButton(view, R.id.dayLessonButton);
         studentLessonEditText = StaticHelpers.initialiseEditText(view, R.id.studentLessonEditText);
         meetingLocationEditText = StaticHelpers.initialiseEditText(view, R.id.meetingLocationEditText);
-        amountEditText = StaticHelpers.initialiseEditText(view, R.id.amountEditText);
+        amountEditText = StaticHelpers.initialiseEditText(view, R.id.performanceRatingBar);
         commentsEditText = StaticHelpers.initialiseEditText(view, R.id.commentsEditText);
         timeStartButton = StaticHelpers.initialiseButton(view, R.id.timeStartLessonButton);
         timeEndButton = StaticHelpers.initialiseButton(view, R.id.timeEndLessonButton);

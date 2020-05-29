@@ -35,7 +35,7 @@
     <string name="add_student">Add Student</string>
     <string name="favorite">Favorite</string>
     <string name="dollar_sign">$</string>
-    <string name="lessons">lessons</string>
+    <string name="lessons">Lessons</string>
     <string name="amount">Amount</string>
     <string name="number_of_lessons">Lessons #</string>
     <string name="date_purchased">Date</string>
@@ -43,10 +43,15 @@
     <string name="enter_state">Enter State</string>
     <string name="add_driving_test">Add Test</string>
     <string name="add_package">Add Package</string>
+    <string name="packages">Packages</string>
     <string name="name">Name</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="edit_student">Edit Student</string>
     <string name="delete_student">Delete Student</string>
     <string name="view_dashboard">View Dashboard</string>
+    <string name="title_activity_lesson_maps">Map</string>
+    <string name="lesson">Lesson</string>
+    <string name="rating">Performance</string>
+    <string name="map">Map</string>
 </resources>

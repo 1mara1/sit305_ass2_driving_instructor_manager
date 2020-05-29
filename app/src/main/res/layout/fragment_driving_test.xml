@@ -115,7 +115,7 @@
                     android:text="Booking Number" />
 
                 <EditText
-                    android:id="@+id/amountEditText"
+                    android:id="@+id/performanceRatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"

@@ -1,7 +1,5 @@
 package com.example.drivingschoolmanagerandplanner.customclasses;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +9,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.example.drivingschoolmanagerandplanner.LessonFragment;
-import com.example.drivingschoolmanagerandplanner.R;
-
 import java.util.Objects;
 
 public class StaticHelpers {
@@ -92,7 +83,6 @@ public class StaticHelpers {
         transaction.commit();
     }
 
-
     public static Boolean validate(String[] values) {
         for (int i = 0; i < values.length; i++) {
             if (values[i].isEmpty())
@@ -100,9 +90,6 @@ public class StaticHelpers {
         }
         return true;
     }
-
-
-
 
     public static Float tryParse(String text) {
         try {

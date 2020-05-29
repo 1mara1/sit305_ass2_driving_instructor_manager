@@ -28,7 +28,7 @@ public class DashboardFragment extends Fragment {
     private ArrayList<Student> students;
     private ArrayList<Lesson> lessons;
     private ArrayList<DrivingTest> drivingTests;
-    private ImageButton lessonAddButton, studentAddButton, testAddButton, packageAddButton, testsListButton, studentsListButton, packagesListButton , lessonsListButton;
+    private ImageButton lessonAddButton, studentAddButton, packageAddButton, testsListButton, studentsListButton, packagesListButton , lessonsListButton;
     private TextView studentTotalTextView, packagesTotalTextView, lessonsTotalTextView, testsTotalTextView;
 
     public DashboardFragment() {
@@ -65,7 +65,6 @@ public class DashboardFragment extends Fragment {
     private void initialiseWidgetReferences(View view) {
         studentAddButton = StaticHelpers.initialiseImageButton(view, R.id.studentsAddImageButton);
         lessonAddButton = StaticHelpers.initialiseImageButton(view, R.id.lessonAddImageButton);
-        testAddButton = StaticHelpers.initialiseImageButton(view, R.id.testsAddImageButton);
         packageAddButton = StaticHelpers.initialiseImageButton(view, R.id.packagesAddImageButton);
         testsListButton = StaticHelpers.initialiseImageButton(view, R.id.testsViewImageButton);
         packagesListButton = StaticHelpers.initialiseImageButton(view, R.id.packagesViewImageButton);
@@ -91,13 +90,6 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 setFragment(new LessonFragment(),"New Lesson");
-            }
-        });
-
-        testAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(new DrivingTestFragment(),"New Driving Test");
             }
         });
 

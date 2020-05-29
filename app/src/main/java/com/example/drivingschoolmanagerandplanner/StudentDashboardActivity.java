@@ -10,7 +10,6 @@ package com.example.drivingschoolmanagerandplanner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +24,6 @@ import com.example.drivingschoolmanagerandplanner.models.Student;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class StudentDashboardActivity extends AppCompatActivity {
 
@@ -47,12 +45,8 @@ public class StudentDashboardActivity extends AppCompatActivity {
     public static final String NUMBER_TESTS = "number_tests" ;
     public static final String NUMBER_PACKAGES = "number_packages";
 
-
-
-
-
     private TabLayout studentDashboardTabs;
-    long id = -1;
+    long studentId = -1;
     Student student;
     long lessonId = -1;
 
@@ -61,16 +55,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dashboard);
 
-      //  InitialiseWidgets();
-
 //       Retrieve the id from the bundle and query the database by studentId
+        studentId = StaticHelpers.RetrieveIdFromBundle(getIntent(), ListItemsFragment.STUDENT_ID);
 
-
-
-
-        id = StaticHelpers.RetrieveIdFromBundle(getIntent(), ListItemsFragment.STUDENT_ID);
-
-        student = DbHelper.getStudentById(this, id);
+        student = DbHelper.getStudentById(this, studentId);
 
         LoadTopFragmentWithBundle(student);
 
@@ -79,13 +67,13 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
         if(keyValues != null){
             lessonId = keyValues[0];
-            id = keyValues[1];
+            studentId = keyValues[1];
             
             ArrayList<Lesson> lessons = DbHelper.getLessons(this);
 
 
             for (Lesson lesson : lessons) {
-                if (lesson.getStudentId() == id) {
+                if (lesson.getStudentId() == studentId) {
                     studentLessons.add(lesson.getStudentId());
                 }
             }
@@ -117,9 +105,10 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
                 if(tabName.contains("Student"))
                     LoadTopFragmentWithBundle(student);
-                if(tabName.contains("Add Lesson")) {
-                    StaticHelpers.LoadFragmentWithId(getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.studentDetailsTop, (int) id);
+                if(tabName.contains("Lessons")) {
+                    StaticHelpers.LoadFragmentWithId(getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.studentDetailsTop, (int) studentId);
                 }
+
 
 //                Add Package
 //                Add Test
@@ -170,16 +159,18 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 bundle.putString(STATE, student.getState());
                 bundle.putInt(POSTCODE, student.getPostcode());
                 bundle.putString(COUNTRY, student.getCountry());
-                bundle.putLong(STUDENT_ID, id);
+                bundle.putLong(STUDENT_ID, studentId);
 
                 StaticHelpers.LoadFragmentWithBundle(getSupportFragmentManager().beginTransaction(), new StudentFragment(), R.id.studentDetailsTop, bundle);
 
                 break;
-            case R.id.favorite:
-                Log.d(TAG, "onOptionsItemSelected: favorite clicked");
-                break;
             case R.id.delete:
                 Log.d(TAG, "onOptionsItemSelected: delete clicked ");
+
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra(TITLE, "Student deleted successfully");
+                startActivity(intent);
+                DbHelper.deleteStudent(this, (int) studentId);
                 break;
         }
         return true;
@@ -210,7 +201,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
         args.putInt(NUMBER_LESSONS, lessons);
         args.putInt(NUMBER_PACKAGES, packages);
         args.putInt(NUMBER_TESTS, test);
-        args.putLong(STUDENT_ID, id);
+        args.putLong(STUDENT_ID, studentId);
         bottomFragment.setArguments(args);
 
         StaticHelpers.LoadFragment(getSupportFragmentManager().beginTransaction(), R.id.studentDetailsBottom,  bottomFragment) ;

@@ -293,18 +293,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView147"
         app:layout_constraintTop_toBottomOf="@+id/divider96" />
 
-    <ImageButton
-        android:id="@+id/testsAddImageButton"
-        style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_weight="1"
-        android:background="#FF6E40"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintEnd_toStartOf="@+id/testsViewImageButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider96" />
+
 
     <ImageButton
         android:id="@+id/testsViewImageButton"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".PackageFragment">
+    tools:context=".PlannerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +19,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/studentFormTitleTextView"
+                android:id="@+id/plannerTitleTextView"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
-                android:text="New Package"
+                android:text="New Planner"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textColor="#FF6E40" />
 
             <Button
-                android:id="@+id/saveLesson"
+                android:id="@+id/savePlanner"
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,12 +43,24 @@
             android:layout_marginStart="16dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/datePackagePurchasedButton"
-                android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/TextView4"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
-                android:hint="@string/date_purchased" />
+                android:text="@string/student" />
+
+            <TextView
+                android:id="@+id/studentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
@@ -59,15 +71,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/studentPackageTextView"
+                android:id="@+id/TextView2"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/student" />
+                android:layout_height="match_parent"
+                android:text="@string/lesson" />
 
-            <Spinner
-                android:id="@+id/studentSpinner"
+            <TextView
+                android:id="@+id/lessonTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -79,13 +93,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/timeTextView"
+                android:id="@+id/TextView1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Package Name" />
+                android:text="Topic" />
 
             <EditText
-                android:id="@+id/packageNameEditText"
+                android:id="@+id/topicEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -102,19 +116,17 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/emailTextView"
+                android:id="@+id/TextView3"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@string/amount" />
+                android:text="@string/rating" />
 
-            <EditText
-                android:id="@+id/amountEditText"
-                android:layout_width="80dp"
+            <RatingBar
+                android:id="@+id/performanceRatingBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:typeface="normal" />
+                android:numStars="5"
+                android:rating="3.5" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,19 +135,11 @@
             android:layout_marginStart="16dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/emailTextView3"
-                android:layout_width="100dp"
+            <Button
+                android:id="@+id/startMapButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/number_of_lessons" />
-
-            <EditText
-                android:id="@+id/numberOfLessonsEditText"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="@string/map"
                 android:typeface="normal" />
         </LinearLayout>
 

@@ -22,10 +22,10 @@ import java.util.Objects;
 
 public class StudentDetailsBottomFragment extends Fragment {
 
-    private static final String TITLE = "lessons";
-    TextView numberLessonsTextView, numberPackagesTextView, numberTestsTextView;
-    ImageButton lessonsForStudentButton, packagesForStudentButton, testsForStudentButton;
-    int numberOfLessons, numberOfTests, numberOfPackages;
+    public static final String TITLE = "lessons";
+    TextView numberLessonsTextView, numberPackagesTextView;
+    ImageButton lessonsForStudentButton;
+    int numberOfLessons, numberOfPackages;
     long studentId;
 
 
@@ -45,8 +45,6 @@ public class StudentDetailsBottomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_details_bottom, container, false);
 
         numberLessonsTextView = StaticHelpers.initialiseTextView(view, R.id.numberLessonsTextView);
-        numberPackagesTextView = StaticHelpers.initialiseTextView(view, R.id.numberPackagesTextView);
-        numberTestsTextView = StaticHelpers.initialiseTextView(view, R.id.numberTestsTextView);
         lessonsForStudentButton = StaticHelpers.initialiseImageButton(view, R.id.lessonsForStudentButton);
         setLessonDetailsFromActivity();
         setLessonsDetailsToTextView();
@@ -72,15 +70,13 @@ public class StudentDetailsBottomFragment extends Fragment {
 
     private void setLessonDetailsFromActivity(){
         numberOfLessons = getArguments().getInt(StudentDashboardActivity.NUMBER_LESSONS);
-        numberOfTests = getArguments().getInt(StudentDashboardActivity.NUMBER_TESTS);
+
         numberOfPackages = getArguments().getInt(StudentDashboardActivity.NUMBER_PACKAGES);
         studentId = getArguments().getLong(StudentDashboardActivity.STUDENT_ID);
     }
 
     private void setLessonsDetailsToTextView(){
         numberLessonsTextView.setText(String.valueOf(numberOfLessons));
-        numberTestsTextView.setText(String.valueOf(numberOfTests));
-        numberPackagesTextView.setText(String.valueOf(numberOfTests));
     }
 
     private void setFragment(Fragment fragment, String title){
@@ -89,7 +85,6 @@ public class StudentDetailsBottomFragment extends Fragment {
         FragmentManager manager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.studentDetailsTop, fragment).addToBackStack(null);
-
         args.putString(TITLE, title);
         fragment.setArguments(args);
 

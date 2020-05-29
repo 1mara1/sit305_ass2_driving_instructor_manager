@@ -29,7 +29,8 @@ public class StudentDetailsTopFragment extends Fragment {
     // region Declarations
 
     private static final String TAG = "StudentDetailsTopFragm";
-    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+
     TextView fullNameTopTextView, mobileTextView, emailTextView, addressTextView;
     String name, email, address;
     int mobile;

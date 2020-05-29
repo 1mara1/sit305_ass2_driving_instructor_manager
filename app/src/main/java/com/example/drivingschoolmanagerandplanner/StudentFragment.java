@@ -74,8 +74,8 @@ int mobile, postcode;
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
-
-                String[] values = {firstNameEditText.getText().toString(),
+                String[] values = {
+                        firstNameEditText.getText().toString(),
                         lastnameEditText.getText().toString(),
                         mobileEditText.getText().toString(),
                         emailEditText.getText().toString(),
@@ -103,7 +103,9 @@ int mobile, postcode;
 
 
                     if(title.contains("Update Student")){
-                        int count  = DbHelper.updateStudent(getActivity(), firstName, lastName, mobile, email, addressLine, suburb, state, postcode, country,(int)row);
+
+
+                        int count  = DbHelper.updateStudent(getActivity(),  s.getFirstName(), s.getLastName(),s.getPhone(), s.getEmail(),s.getAddressLine(),s.getSuburb(),s.getState(),s.getPostcode(), s.getCountry(),(int)row);
                         Log.d(TAG, "onClick: update student "+ count);
                         DisplayMessage("Student updated!" );
                     }

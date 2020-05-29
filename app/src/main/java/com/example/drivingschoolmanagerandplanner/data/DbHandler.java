@@ -16,7 +16,7 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TAG = "DbHandler" ;
 
     //region constants
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     private static final String DB_NAME = "manageInstructordb";
 
     // Students
@@ -305,6 +305,28 @@ public class DbHandler extends SQLiteOpenHelper {
         }
         return lessonsList;
     }
+
+    public Lesson GetLessonById(int lessonId){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_Lessons + " WHERE "
+                + LESSON_ID + " = " + lessonId;
+
+        Log.d(TAG , "GetLessonById query " + selectQuery);
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Lesson lesson = new Lesson();
+        lesson.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
+        lesson.setStartTime(cursor.getString(cursor.getColumnIndex(START_TIME)));
+        lesson.setEndTime(cursor.getString(cursor.getColumnIndex(END_TIME)));
+        return lesson;
+    }
+
 
     // Delete Lesson Details
     public void deleteLesson(int lessonId){

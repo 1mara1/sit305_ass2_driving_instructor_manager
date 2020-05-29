@@ -17,6 +17,8 @@ public class Lesson {
     private int isPackageLesson; // true for package lesson
     private int studentId;
 
+    public Lesson() {
+    }
 
     public Lesson(String notes, float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId) {
        // this.student = student;
@@ -57,6 +59,18 @@ public class Lesson {
 
     public String getDay() {
         return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public String getStartTime() {

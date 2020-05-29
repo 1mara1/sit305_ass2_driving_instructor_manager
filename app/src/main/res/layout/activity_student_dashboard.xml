@@ -38,22 +38,8 @@
                 android:id="@+id/addLessonTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_mr_button_connected_08_dark"
-                android:text="@string/add_lesson" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/addTestTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_unchecked_checkbox"
-                android:text="@string/add_driving_test" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/addPackageTab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_audiotrack_dark"
-                android:text="@string/add_package" />
+                android:icon="@drawable/ic_vol_type_tv_dark"
+                android:text="@string/lessons" />
 
         </com.google.android.material.tabs.TabLayout>
 

@@ -7,9 +7,6 @@
         android:id="@+id/edit_student"
         android:title="@string/edit_student"/>
     <item
-        android:id="@+id/favorite"
-        android:title="@string/favorite"/>
-    <item
         android:id="@+id/delete"
         android:title="@string/delete_student"/>
 </menu>

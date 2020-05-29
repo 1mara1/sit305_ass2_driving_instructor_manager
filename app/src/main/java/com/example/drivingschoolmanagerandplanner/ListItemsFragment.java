@@ -33,11 +33,16 @@ import java.util.Objects;
 public class ListItemsFragment<T> extends Fragment {
 
     private static final String TAG = "ListFragment" ;
-    public static final String STUDENT_ID = "student_id" ;
+    public static final String STUDENT_ID = "student_id";
+    public static final String STUDENT_NAME = "student name";
+    public static final String LESSON_ID = "Lesson Id";
+    public static final String POSITION = "position";
+    Student student;
     CustomListAdapter<T> adapter;
     RecyclerView recyclerView;
     TextView listTitleTextView;
     String title;
+    String titleFromStudentDash;
     T value;
 
     private ArrayList<T> data; // populate a list of provided model class
@@ -57,6 +62,7 @@ public class ListItemsFragment<T> extends Fragment {
         if (getArguments() != null) {
             // set the title for the next activity loaded
             title = getArguments().getString(DashboardFragment.TITLE);
+            titleFromStudentDash = getArguments().getString(StudentDetailsBottomFragment.TITLE);
         }
     }
 
@@ -102,7 +108,13 @@ public class ListItemsFragment<T> extends Fragment {
                     setItemHolders(itemHolder, student.getFullName(), student.getAddressLine(), student.getSuburb(), student.getState());
                 }
 
-                if (val instanceof Lesson) {
+                if (titleFromStudentDash != null) {
+                    Lesson lesson = (Lesson) val;
+                    Log.d(TAG, "onBindData:  student" + lesson.getClass());
+                    DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
+                    student = db.GetStudentById(lesson.getStudentId());
+                    setItemHolders(itemHolder, "", lesson.getStartTime(), lesson.getEndTime(), lesson.getMeetingAddress());
+                }else if (val instanceof Lesson) {
                     Lesson lesson = (Lesson) val;
                     Log.d(TAG, "onBindData:  student" + lesson.getClass());
                     DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
@@ -131,12 +143,18 @@ public class ListItemsFragment<T> extends Fragment {
                         Log.d(TAG, "onClick: ---- " + view.getId() + " position " + position);
 
                         if (value instanceof Student) {
-                            Bundle args = new Bundle(); args.putLong(STUDENT_ID, position + 1);
+                            Bundle args = new Bundle();
+                            args.putLong(STUDENT_ID, position + 1);
                             Intent intent = StaticHelpers.LoadActivityWithBundle(getContext(), StudentDashboardActivity.class, args);
                             Objects.requireNonNull(getContext()).startActivity(intent);
                         }
 
-                        if (value instanceof Lesson)
+                        if (titleFromStudentDash != null) {
+                            Bundle args = new Bundle();
+                            args.putInt(POSITION, position + 1);
+                            args.putString(STUDENT_NAME, student.getFullName());
+                            StaticHelpers.LoadFragmentWithBundle(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new PlannerFragment(), R.id.studentDetailsTop, args);
+                        } else if (value instanceof Lesson)
                            StaticHelpers.LoadFragmentWithId(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.FormsFrameLayout, position + 1);
 
 
