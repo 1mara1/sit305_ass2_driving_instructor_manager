@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.drivingschoolmanagerandplanner.customclasses.DbHelper;
 import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
 import com.example.drivingschoolmanagerandplanner.models.Lesson;
+import com.example.drivingschoolmanagerandplanner.models.Student;
 
 
 public class PlannerFragment extends Fragment {
@@ -25,9 +26,8 @@ public class PlannerFragment extends Fragment {
     private TextView studentTextView, lessonTextView;
     private EditText topicEditText;
     private Button startMapButton;
-
     int lessonId;
-    String studentName;
+
 
 
     public PlannerFragment() {
@@ -39,8 +39,7 @@ public class PlannerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            lessonId = getArguments().getInt(ListItemsFragment.POSITION);
-            studentName = getArguments().getString(ListItemsFragment.STUDENT_NAME);
+            lessonId = getArguments().getInt(ListItemsFragment.LESSON_ID);
         }
     }
 
@@ -66,8 +65,11 @@ public class PlannerFragment extends Fragment {
 
             Lesson lesson = DbHelper.getLessonById(getActivity(), lessonId);
 
+
+           Student student = DbHelper.getStudentById(getActivity(), lesson.getStudentId());
+
             lessonTextView.setText(new StringBuilder().append(lesson.getDay()).append(" ").append(lesson.getStartTime()).append(" ").append(lesson.getEndTime()).toString());
-            studentTextView.setText(studentName);
+            studentTextView.setText(student.getFullName());
 //            StaticHelpers.displayToastMessage(getContext(),"");
         }
 

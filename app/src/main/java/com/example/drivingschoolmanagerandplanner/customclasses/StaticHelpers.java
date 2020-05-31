@@ -22,7 +22,7 @@ public class StaticHelpers {
         return intent;
     }
 
-    public static long RetrieveIdFromBundle(Intent intent, String key){
+    public static Long RetrieveIdFromBundle(Intent intent, String key){
       return Objects.requireNonNull(intent.getExtras()).getLong(key);
     }
 
@@ -53,9 +53,10 @@ public class StaticHelpers {
         Toast.makeText(context, message, Toast.LENGTH_LONG ).show();
     }
 
-    public static void LoadFragmentWithId(FragmentTransaction transaction, Fragment targetFragment, int resourceId, int id) {
+    public static void LoadFragmentWithId(FragmentTransaction transaction, Fragment targetFragment, int resourceId, String from, String activityTag,  String key, int id) {
         Bundle args = new Bundle();
-        args.putInt("id", id);
+        args.putInt(key, id);
+        args.putString(activityTag, from);
         targetFragment.setArguments(args);
 
 //         Replace the fragment_container view with this fragment,

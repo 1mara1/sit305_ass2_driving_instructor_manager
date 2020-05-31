@@ -19,7 +19,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/studentFormTitleTextView"
+                android:id="@+id/lessonTitleTextView"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
@@ -37,33 +37,24 @@
                 android:text="Save" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:text="@string/student" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/student" />
+        <Spinner
+            android:id="@+id/lessonSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-            <EditText
-                android:id="@+id/studentLessonEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName|textCapSentences" />
-
-<!--            <Spinner-->
-<!--                android:id="@+id/studentLessonEditText"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-
-        </LinearLayout>
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

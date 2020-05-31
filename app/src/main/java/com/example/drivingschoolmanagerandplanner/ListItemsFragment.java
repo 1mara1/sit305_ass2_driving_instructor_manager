@@ -6,9 +6,14 @@
 
 package com.example.drivingschoolmanagerandplanner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -28,22 +33,42 @@ import com.example.drivingschoolmanagerandplanner.models.Package;
 import com.example.drivingschoolmanagerandplanner.models.Student;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class ListItemsFragment<T> extends Fragment {
 
-    private static final String TAG = "ListFragment" ;
+    public static final String TAG = "ListFragment" ;
     public static final String STUDENT_ID = "student_id";
     public static final String STUDENT_NAME = "student name";
     public static final String LESSON_ID = "Lesson Id";
     public static final String POSITION = "position";
+    private static final String DATA_SET = "index";
+
+
+    SharedPreferences sharedPref;
     Student student;
+    Lesson lesson;
     CustomListAdapter<T> adapter;
+    ArrayList<T> updatedData; // need to keep the id's relevant for the row in case a record is deleted from the database
+    //Map<String, java.lang.String> ids ;
+    //int[] ids;
+
+    Set<String> ids;
+    Set<String> lessonIds;
     RecyclerView recyclerView;
     TextView listTitleTextView;
     String title;
     String titleFromStudentDash;
     T value;
+    int lessonId =-1;
+    int studentId = -1;
+    int index;
+
 
     private ArrayList<T> data; // populate a list of provided model class
 
@@ -66,6 +91,17 @@ public class ListItemsFragment<T> extends Fragment {
         }
     }
 
+//    @Override
+//    public void onSaveInstanceState(@NonNull Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putIntArray(STUDENT_ID, ids);
+//    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: called");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,7 +111,14 @@ public class ListItemsFragment<T> extends Fragment {
         listTitleTextView = (TextView) view.findViewById(R.id.listTitleTextView);
 
         listTitleTextView.setText(title);
+
+        sharedPref = getActivity().getSharedPreferences(STUDENT_ID, Context.MODE_PRIVATE);
+        sharedPref = getActivity().getSharedPreferences(LESSON_ID, Context.MODE_PRIVATE);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
+
+        ids = new HashSet<>();
+        lessonIds = new HashSet<>();
 
         // region Implementing the custom adapter
         // instantiate the adapter and provide the context and data based
@@ -91,80 +134,113 @@ public class ListItemsFragment<T> extends Fragment {
             public void onBindData(RecyclerView.ViewHolder holder, T val) {
                 Log.d(TAG, "onBindData:  val " + val);
                 value = val;
+//                checkSharedPreferences();
                 ItemViewHolder itemHolder = (ItemViewHolder) holder;
-
-                if (val instanceof DrivingTest) {
-                    DrivingTest test = (DrivingTest) val;
-                    Log.d(TAG, "onBindData:  test" + test.getClass());
-                    DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
-                    // get the student from the lesson id
-                    Student st = db.GetStudentById(test.getStudentId());
-                    setItemHolders(itemHolder, st.getFullName(), test.getDate(), test.getTime(), test.getLocation());
-                }
 
                 if (val instanceof Student) {
                     Student student = (Student) val;
-                    Log.d(TAG, "onBindData:  student" + student.getClass());
-                    setItemHolders(itemHolder, student.getFullName(), student.getAddressLine(), student.getSuburb(), student.getState());
+
+                    // save the student id so that we can access it later when clicked on the  list item
+                    ids.add(String.valueOf(student.getStudentId()));
+                    sharedPref.edit().putStringSet(STUDENT_ID, ids);
+
+                    Log.d(TAG, "onBindData: student id: " + student.getStudentId());
+
+//                    for(String m:ids){
+//                        Log.d(TAG, "onBindData: key "+ m);
+//                    }
+                 //   Log.d(TAG, "onBindData: ids " + ids.size());
+                   // Log.d(TAG, "onBindData:  student" + student.getClass());
+                    setItemHolders(itemHolder, student.getFullName(), student.getAddress(), "", "");
                 }
 
-                if (titleFromStudentDash != null) {
+                if (val instanceof Lesson) {
                     Lesson lesson = (Lesson) val;
-                    Log.d(TAG, "onBindData:  student" + lesson.getClass());
-                    DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
-                    student = db.GetStudentById(lesson.getStudentId());
-                    setItemHolders(itemHolder, "", lesson.getStartTime(), lesson.getEndTime(), lesson.getMeetingAddress());
-                }else if (val instanceof Lesson) {
-                    Lesson lesson = (Lesson) val;
-                    Log.d(TAG, "onBindData:  student" + lesson.getClass());
-                    DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
-                    Student st = db.GetStudentById(lesson.getStudentId());
-                    setItemHolders(itemHolder, st.getFullName(), lesson.getMeetingAddress(), lesson.getStartTime(), lesson.getEndTime());
-                }
+                    if (titleFromStudentDash != null) {
+                        // we have request from the student dashboard to load the lessons for a specific student
 
-                if (val instanceof Package) {
-                    Package packageLessons = (Package) val;
-                    Log.d(TAG, "onBindData:  student" + packageLessons.getClass());
-                    setItemHolders(itemHolder, packageLessons.getName()
-                            , packageLessons.getStudent().getFullName()
-                            , MessageFormat.format("{0}{1}", getString(R.string.lessons), packageLessons.getNumberOfLessons())
-                            , String.format("%s%s", getString(R.string.dollar_sign), packageLessons.getAmount()));
+//                        Log.d(TAG, "onBindData:  student" + lesson.getClass());
+
+                        lessonIds.add(String.valueOf(lesson.getLessonId()));
+                        sharedPref.edit().putStringSet(LESSON_ID, lessonIds);
+
+//                        DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
+//                        student = db.GetStudentById(lesson.getStudentId());
+
+                        setItemHolders(itemHolder, "", lesson.getStartTime(), lesson.getEndTime(), lesson.getMeetingAddress());
+                    } else if(titleFromStudentDash == null) {
+                        // we request other than the student dashboard
+
+                        Log.d(TAG, "onBindData:  student" + lesson.getClass());
+                        lessonIds.add(String.valueOf(lesson.getLessonId()));
+                        sharedPref.edit().putStringSet(LESSON_ID, lessonIds);
+
+                        DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
+                        Student st = db.GetStudentById(lesson.getStudentId());
+                        if (st != null) {
+                            // lesson and student exist
+                            setItemHolders(itemHolder, st.getFullName(), lesson.getMeetingAddress(), lesson.getStartTime(), lesson.getEndTime());
+                        } else {
+                            // the student was deleted but not the lesson
+                            setItemHolders(itemHolder, "Student was removed", lesson.getMeetingAddress(), lesson.getStartTime(), lesson.getEndTime());
+                        }
+                    }
                 }
             }
+
+
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
                 super.onBindViewHolder(holder, position);
+                checkSharedPreferences();
 
+                // when user clicks on an item
                 View.OnClickListener itemClicked = new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Log.d(TAG, "onClick: ---- " + view.getId() + " position " + position);
+                        Log.d(TAG, "onClick: ---- clicked row id " + view.getId() + "with position " + position);
 
                         if (value instanceof Student) {
+                            // retrieve it from the shared preferences
+                            Object[] id = ids.toArray();
+                            Log.d(TAG, "onClick: value from set  "+ id[position]);
+                            long sId = Long.parseLong((String)id[position]);
+
                             Bundle args = new Bundle();
-                            args.putLong(STUDENT_ID, position + 1);
+                            args.putLong(STUDENT_ID, sId);
                             Intent intent = StaticHelpers.LoadActivityWithBundle(getContext(), StudentDashboardActivity.class, args);
                             Objects.requireNonNull(getContext()).startActivity(intent);
                         }
 
-                        if (titleFromStudentDash != null) {
-                            Bundle args = new Bundle();
-                            args.putInt(POSITION, position + 1);
-                            args.putString(STUDENT_NAME, student.getFullName());
-                            StaticHelpers.LoadFragmentWithBundle(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new PlannerFragment(), R.id.studentDetailsTop, args);
-                        } else if (value instanceof Lesson)
-                           StaticHelpers.LoadFragmentWithId(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.FormsFrameLayout, position + 1);
+                        if (value instanceof Lesson) {
+                            if (titleFromStudentDash != null) {
 
+                                // retrieve it from the shared preferences
+                                Object[] id = lessonIds.toArray();
+                                Log.d(TAG, "onClick: value from set  "+ id[position]);
+                                int lId = Integer.parseInt((String) id[position]);
+                                // we have a request from the the student dashboard when a lesson is clicked
+                                // load the lesson planner
+                               Lesson les = DbHelper.getLessonById(getActivity(), lId);
 
-                        if (value instanceof DrivingTest) {
-                          //  StaticHelpers.LoadFragmentWithId(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new DrivingTestFragment(), R.id.FormsFrameLayout, position + 1);
-//                         StaticHelpers.LoadFragmentWithStudentId(new LessonFragment(), R.id.FormsFrameLayout, position + 1);
-                        }
+                                Bundle args = new Bundle();
+                                args.putInt(STUDENT_ID,  les.getStudentId());
+                                args.putInt(LESSON_ID,   lId);
+                                StaticHelpers.LoadFragmentWithBundle(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new PlannerFragment(), R.id.studentDetailsTop, args);
+                            }else if (titleFromStudentDash == null) {
+                                Object[] id = lessonIds.toArray();
+                                Log.d(TAG, "onClick: value from set  "+ id[position]);
+                                int lId = Integer.parseInt((String) id[position]);
+                                Lesson les = DbHelper.getLessonById(getActivity(), lId);
 
-                        if (value instanceof Package) {
-//                          StaticHelpers.LoadFragmentWithStudentId(new LessonFragment(), R.id.FormsFrameLayout, position + 1);
+                                Bundle args = new Bundle();
+                                args.putInt(STUDENT_ID, les.getStudentId());
+                                args.putInt(LESSON_ID, lId);
+                                args.putString(TAG, TAG);
+                                StaticHelpers.LoadFragmentWithBundle(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.FormsFrameLayout, args);
+                            }
                         }
                     }
                 };
@@ -179,6 +255,8 @@ public class ListItemsFragment<T> extends Fragment {
         return view;
     }
 
+
+
     // Sets the values for the row
     private void setItemHolders(ItemViewHolder itemHolder, String rightOfImage, String belowImageLeft, String belowImageCentre, String belowImageRight ) {
         itemHolder.rightOfImage.setText(rightOfImage);
@@ -187,6 +265,10 @@ public class ListItemsFragment<T> extends Fragment {
         itemHolder.belowImageRight.setText(String.format(belowImageRight));
     }
 
+    public void checkSharedPreferences()
+    {
+        ids = sharedPref.getStringSet(STUDENT_ID, ids);
 
+    }
 
 }

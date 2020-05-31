@@ -27,9 +27,8 @@ public class DashboardFragment extends Fragment {
     public static final String TITLE = "title";
     private ArrayList<Student> students;
     private ArrayList<Lesson> lessons;
-    private ArrayList<DrivingTest> drivingTests;
-    private ImageButton lessonAddButton, studentAddButton, packageAddButton, testsListButton, studentsListButton, packagesListButton , lessonsListButton;
-    private TextView studentTotalTextView, packagesTotalTextView, lessonsTotalTextView, testsTotalTextView;
+    private ImageButton lessonAddButton, studentAddButton, studentsListButton,  lessonsListButton;
+    private TextView studentTotalTextView, lessonsTotalTextView;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -59,21 +58,15 @@ public class DashboardFragment extends Fragment {
     private void InitialiseDataList(View view){
         students = DbHelper.getStudents((Activity) getContext());
         lessons = DbHelper.getLessons((Activity) getContext());
-        drivingTests = DbHelper.getTests((Activity) getContext());
     }
 
     private void initialiseWidgetReferences(View view) {
         studentAddButton = StaticHelpers.initialiseImageButton(view, R.id.studentsAddImageButton);
         lessonAddButton = StaticHelpers.initialiseImageButton(view, R.id.lessonAddImageButton);
-        packageAddButton = StaticHelpers.initialiseImageButton(view, R.id.packagesAddImageButton);
-        testsListButton = StaticHelpers.initialiseImageButton(view, R.id.testsViewImageButton);
-        packagesListButton = StaticHelpers.initialiseImageButton(view, R.id.packagesViewImageButton);
         studentsListButton = StaticHelpers.initialiseImageButton(view, R.id.numberLessonsTextView);
         lessonsListButton = StaticHelpers.initialiseImageButton(view, R.id.lessonViewImageButton);
         studentTotalTextView = StaticHelpers.initialiseTextView(view, R.id.studentTotalTextView);
-        packagesTotalTextView = StaticHelpers.initialiseTextView(view, R.id.packagesTotalTextView);
         lessonsTotalTextView = StaticHelpers.initialiseTextView(view, R.id.lessonsTotalTextView);
-        testsTotalTextView = StaticHelpers.initialiseTextView(view, R.id.testsTotalTextView);
     }
 
     private void setImageViewButtonsOncLickListeners() {
@@ -93,21 +86,6 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        packageAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              //  setFragment(new PackageFragment(),"New Package");
-            }
-        });
-
-        // Lists fragments
-        testsListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setFragment(new ListItemsFragment<DrivingTest>(drivingTests), "Driving Tests");
-            }
-        });
-
         studentsListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,11 +100,7 @@ public class DashboardFragment extends Fragment {
             }
         });
 
-        packagesListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
+
     }
 
     private void setFragment(Fragment fragment, String title){
@@ -145,7 +119,6 @@ public class DashboardFragment extends Fragment {
     private void setTotals(){
         studentTotalTextView.setText(String.valueOf(students.size()));
         lessonsTotalTextView.setText(String.valueOf(lessons.size()));
-        testsTotalTextView.setText(String.valueOf(drivingTests.size()));
     }
     //endregion private methods
 }

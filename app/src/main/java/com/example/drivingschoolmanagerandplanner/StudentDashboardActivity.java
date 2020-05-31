@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class StudentDashboardActivity extends AppCompatActivity {
 
-    private static final String TAG = "StudentDashboardActivi";
+    public static final String TAG = "StudentDashboardActivi";
     public static final String FULL_NAME = "full_name";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -56,9 +56,11 @@ public class StudentDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_dashboard);
 
 //       Retrieve the id from the bundle and query the database by studentId
-        studentId = StaticHelpers.RetrieveIdFromBundle(getIntent(), ListItemsFragment.STUDENT_ID);
+       studentId = StaticHelpers.RetrieveIdFromBundle(getIntent(), ListItemsFragment.STUDENT_ID);
+
 
         student = DbHelper.getStudentById(this, studentId);
+
 
         LoadTopFragmentWithBundle(student);
 
@@ -106,7 +108,7 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 if(tabName.contains("Student"))
                     LoadTopFragmentWithBundle(student);
                 if(tabName.contains("Lessons")) {
-                    StaticHelpers.LoadFragmentWithId(getSupportFragmentManager().beginTransaction(), new LessonFragment(), R.id.studentDetailsTop, (int) studentId);
+                    StaticHelpers.LoadFragmentWithId(getSupportFragmentManager().beginTransaction(), new LessonFragment(),R.id.studentDetailsTop, TAG, TAG, STUDENT_ID, (int)studentId);
                 }
 
 
@@ -183,12 +185,15 @@ public class StudentDashboardActivity extends AppCompatActivity {
         //         Create fragment for the top part of the student dashboard activity
 //         create a bundle to pass the student values
         StudentDetailsTopFragment topFragment = new StudentDetailsTopFragment();
-        Bundle args = new Bundle();
-        args.putString(FULL_NAME, student.getFullName());
-        args.putInt(MOBILE, student.getPhone());
-        args.putString(EMAIL, student.getEmail());
-        args.putString(ADDRESS, student.getAddress());
-        topFragment.setArguments(args);
+        if(student != null){
+            Bundle args = new Bundle();
+            args.putString(FULL_NAME, student.getFullName());
+            args.putInt(MOBILE, student.getPhone());
+            args.putString(EMAIL, student.getEmail());
+            args.putString(ADDRESS, student.getAddress());
+            args.putLong(STUDENT_ID, studentId);
+            topFragment.setArguments(args);
+        }
 
         StaticHelpers.LoadFragment(getSupportFragmentManager().beginTransaction(), R.id.studentDetailsTop,  topFragment) ;
     }
