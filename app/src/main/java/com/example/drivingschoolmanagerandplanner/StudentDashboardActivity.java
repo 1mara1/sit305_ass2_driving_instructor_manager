@@ -72,8 +72,6 @@ public class StudentDashboardActivity extends AppCompatActivity {
             studentId = keyValues[1];
             
             ArrayList<Lesson> lessons = DbHelper.getLessons(this);
-
-
             for (Lesson lesson : lessons) {
                 if (lesson.getStudentId() == studentId) {
                     studentLessons.add(lesson.getStudentId());

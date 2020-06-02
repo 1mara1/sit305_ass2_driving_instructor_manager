@@ -8,9 +8,10 @@
     android:background="#FFFFFF"
     tools:context=".StudentDetailsTopFragment">
 
+
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -29,6 +30,25 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textColor="#FF6E40"
             android:textSize="18sp" />
+
+        <ToggleButton
+            android:id="@+id/favouriteToggleButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_unchecked_checkbox"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColor="#FF6D00"
+            android:textOff=""
+            android:textOn="" />
+
+        <!--        <ImageButton-->
+        <!--            android:id="@+id/favourite imageButton"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:background="#FFFFFF"-->
+        <!--            android:src="@android:drawable/btn_star_big_on" />-->
+
 
     </LinearLayout>
 

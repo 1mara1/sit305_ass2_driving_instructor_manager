@@ -1,5 +1,6 @@
 package com.example.drivingschoolmanagerandplanner.customclasses;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.drivingschoolmanagerandplanner.R;
+
 import java.util.Objects;
 
 public class StaticHelpers {
@@ -82,6 +87,23 @@ public class StaticHelpers {
         //transaction.addToBackStack(null);
         // Commit the transaction
         transaction.commit();
+    }
+
+    public static void setFragment(Fragment fragment, FragmentManager fragmentManager, String key, String value){
+        Bundle args = new Bundle();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.FormsFrameLayout, fragment).addToBackStack(null);
+
+        args.putString(key, value);
+        fragment.setArguments(args);
+
+        fragmentTransaction.commit();
+    }
+
+    public static void setFragment(Fragment fragment, FragmentManager fragmentManager){
+         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.FormsFrameLayout, fragment).addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public static Boolean validate(String[] values) {

@@ -228,7 +228,7 @@ public class LessonFragment extends Fragment {
 
                     } else if(lessonTitleTextView.getText() != "Update Lesson"){
                         // we are saving a new lesson
-                        int rowId = (int) saveLessonToDb(l.getNotes(), l.getAmount(), l.getDay(), l.getStartTime(), l.getEndTime(), l.getMeetingAddress(), l.getIsPackageLesson(), (int) positionFromSpinner + 1);
+                        int rowId = (int) saveLessonToDb(l.getNotes(), l.getAmount(), l.getDay(), l.getStartTime(), l.getEndTime(), l.getMeetingAddress(), l.getIsPackageLesson(), (int) studentId);
                         StaticHelpers.displayToastMessage(getContext(), "Lesson Successfully Saved");
                         Bundle args = new Bundle();
                         args.putLong(LESSON_ID, rowId);

@@ -6,22 +6,35 @@
 package com.example.drivingschoolmanagerandplanner;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.example.drivingschoolmanagerandplanner.customclasses.DbHelper;
 import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
+import com.example.drivingschoolmanagerandplanner.models.Student;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
+import java.util.Set;
+import java.util.prefs.PreferencesFactory;
 
 
 public class StudentDetailsTopFragment extends Fragment {
@@ -29,11 +42,21 @@ public class StudentDetailsTopFragment extends Fragment {
     // region Declarations
 
     private static final String TAG = "StudentDetailsTopFragm";
-    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    private static final String STATE = "State";
+    public static final String FAVORITES = "Favorites";
+    private ToggleButton favouriteToggleButton;
 
-    TextView fullNameTopTextView, mobileTextView, emailTextView, addressTextView;
-    String name, email, address;
-    int mobile;
+    private TextView fullNameTopTextView, mobileTextView, emailTextView, addressTextView;
+    private String name, email, address;
+    private int mobile;
+    private long studentId;
+
+   // ArrayList<Long> favoriteStudents;
+    SharedPreferences sharedPreferences;
+    Set<String> favorites; // for the shared pref to store the values
+
+
     //endregion Declarations
 
     // Constructor
@@ -53,9 +76,72 @@ public class StudentDetailsTopFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_student_details_top, container, false);
-        InitialiseWidgets(view);
+        favouriteToggleButton = (ToggleButton)view.findViewById(R.id.favouriteToggleButton);
+        favorites = new HashSet<String>();
+        //sharedPreferences = getActivity().getSharedPreferences("Favourite", Context.MODE_PRIVATE);
+
         SetStudentDetailsFromActivity();
+        InitialiseWidgets(view);
         setStudentDetailsToTextView();
+        readState();
+    //   favorites.clear();
+    //saveFavorites();
+
+Boolean contain =false;
+        if(favorites != null) {
+            if (favorites.size() > 0) {
+                contain = true;
+                for (String id : favorites) {
+                    Integer idP = Integer.parseInt(id);
+
+                    //  String i = String.valueOf(s);
+//                        if (id.contains(i)) {
+                    // favouriteToggleButton.setChecked(true);
+
+
+                    if (idP.equals(Integer.valueOf((String.valueOf(studentId))))) {
+                        favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), R.drawable.favorited));
+                        break;
+                    }
+                }
+                if (!contain)
+                    favorites.clear();
+            } else {
+                favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorite));
+                //   favouriteToggleButton.setChecked(false);
+            }
+        }
+          //  favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorite));
+        //    favouriteToggleButton.setChecked(false);
+
+
+
+        //https://stackoverflow.com/questions/34980309/favourite-button-android
+
+//        favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorite));
+        favouriteToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorited));
+                    favorites.add(String.valueOf(studentId));
+                    saveFavorites();
+                } else {
+                    favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorite));
+
+                    for (String id : favorites) {
+                        String i = String.valueOf(studentId);
+                        if(id.contains(i)){
+                            favorites.remove(i);
+                            saveFavorites();
+                        }
+                    }
+                }
+            }
+        });
+
+
+
 
         mobileTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,12 +198,14 @@ public class StudentDetailsTopFragment extends Fragment {
         addressTextView = StaticHelpers.initialiseTextView(view, R.id.addressTopTextView);
     }
 
-    private void SetStudentDetailsFromActivity(){
+    private void SetStudentDetailsFromActivity() {
         name = getArguments().getString(StudentDashboardActivity.FULL_NAME);
         Log.d(TAG, "onCreateView: student name  " + name);
         mobile = getArguments().getInt(StudentDashboardActivity.MOBILE);
         email = getArguments().getString(StudentDashboardActivity.EMAIL);
         address = getArguments().getString(StudentDashboardActivity.ADDRESS);
+        studentId = getArguments().getLong(StudentDashboardActivity.STUDENT_ID);
+
     }
 
     private void setStudentDetailsToTextView(){
@@ -180,6 +268,23 @@ public class StudentDetailsTopFragment extends Fragment {
             }
         });
     }
+
+    // idea based at https://stackoverflow.com/questions/6186123/android-how-do-i-get-sharedpreferences-from-another-activity
+    SharedPreferences preferences;
+    private void readState() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        favorites = preferences.getStringSet(FAVORITES, favorites);
+    }
+
+    private void saveFavorites(){
+        preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putStringSet(FAVORITES, favorites).apply();
+        //sharedPreferences.edit().putStringSet("Favorites", favorites).apply();
+    }
+
+    // end idea https://stackoverflow.com/questions/6186123/android-how-do-i-get-sharedpreferences-from-another-activity
+
 
     // endregion private methods
 }

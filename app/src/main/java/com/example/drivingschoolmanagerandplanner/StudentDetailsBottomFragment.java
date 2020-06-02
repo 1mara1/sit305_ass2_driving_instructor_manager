@@ -1,3 +1,5 @@
+// The fragment is used to display the lesson for a specific student
+
 package com.example.drivingschoolmanagerandplanner;
 
 import android.content.Intent;
@@ -22,12 +24,10 @@ import java.util.Objects;
 
 public class StudentDetailsBottomFragment extends Fragment {
 
-    public static final String TITLE = "lessons";
-    TextView numberLessonsTextView, numberPackagesTextView;
-    ImageButton lessonsForStudentButton;
-    int numberOfLessons, numberOfPackages;
-    long studentId;
-
+    static final String TITLE = "lessons";
+    private TextView numberLessonsTextView;
+    private int numberOfLessons;
+    private long studentId;
 
     public StudentDetailsBottomFragment() {
         // Required empty public constructor
@@ -45,15 +45,17 @@ public class StudentDetailsBottomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student_details_bottom, container, false);
 
         numberLessonsTextView = StaticHelpers.initialiseTextView(view, R.id.numberLessonsTextView);
-        lessonsForStudentButton = StaticHelpers.initialiseImageButton(view, R.id.lessonsForStudentButton);
+        ImageButton lessonsForStudentButton = StaticHelpers.initialiseImageButton(view, R.id.lessonsForStudentButton);
+        ImageButton lesson2AddImageButton = StaticHelpers.initialiseImageButton(view, R.id.lesson2AddImageButton);
         setLessonDetailsFromActivity();
         setLessonsDetailsToTextView();
-
-        final ArrayList<Lesson> lessons = DbHelper.getLessons(getActivity());
         final ArrayList<Lesson> filteredLessons = new ArrayList<>();
-        for (Lesson lesson : lessons) {
-            if (lesson.getStudentId() == studentId) {
-                filteredLessons.add(lesson);
+        final ArrayList<Lesson> lessons = DbHelper.getLessons(getActivity());
+        if(lessons!= null) {
+            for (Lesson lesson : lessons) {
+                if (lesson.getStudentId() == studentId) {
+                    filteredLessons.add(lesson);
+                }
             }
         }
 
@@ -64,14 +66,18 @@ public class StudentDetailsBottomFragment extends Fragment {
             }
         });
 
+        lesson2AddImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setFragment(new LessonFragment(),"New Lesson");
+            }
+        });
 
         return view;
     }
 
     private void setLessonDetailsFromActivity(){
         numberOfLessons = getArguments().getInt(StudentDashboardActivity.NUMBER_LESSONS);
-
-        numberOfPackages = getArguments().getInt(StudentDashboardActivity.NUMBER_PACKAGES);
         studentId = getArguments().getLong(StudentDashboardActivity.STUDENT_ID);
     }
 
@@ -87,7 +93,6 @@ public class StudentDetailsBottomFragment extends Fragment {
         fragmentTransaction.replace(R.id.studentDetailsTop, fragment).addToBackStack(null);
         args.putString(TITLE, title);
         fragment.setArguments(args);
-
         fragmentTransaction.commit();
     }
 }
