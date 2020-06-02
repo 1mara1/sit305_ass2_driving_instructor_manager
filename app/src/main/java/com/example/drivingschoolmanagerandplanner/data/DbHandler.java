@@ -173,7 +173,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return  studentList;
     }
 
@@ -197,6 +197,8 @@ public class DbHandler extends SQLiteOpenHelper {
             student.put("country",cursor.getString(cursor.getColumnIndex(COUNTRY)));
             studentList.add(student);
         }
+
+        cursor.close();
         return  studentList;
     }
 
@@ -211,11 +213,13 @@ public class DbHandler extends SQLiteOpenHelper {
         Log.d(TAG , "GetStudentById query " + selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.close();
-        if(!cursor.moveToFirst())
-            return null;
 
-        cursor.moveToFirst();
+        if(cursor != null)
+            if(cursor.moveToFirst() == false)
+                return null;
+
+        if (cursor != null)
+            cursor.moveToFirst();
 
         Student student = new Student();
         student.setFullName(cursor.getString(cursor.getColumnIndex(FIRST_NAME))
@@ -227,6 +231,8 @@ public class DbHandler extends SQLiteOpenHelper {
                , cursor.getString(cursor.getColumnIndex(COUNTRY)));
         student.setContactDetails(  cursor.getInt(cursor.getColumnIndex(PHONE))
                , cursor.getString(cursor.getColumnIndex(EMAIL)));
+
+        cursor.close();
         return student;
     }
 
@@ -287,9 +293,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
         String query = "SELECT notes, amount, day, startTime, endTime, meetingAddress, isPackageLesson, id, lessonId FROM " + TABLE_Lessons;
         Cursor cursor = db.rawQuery(query, null);
-        cursor.close();
         if (cursor.moveToFirst()) {
-
             while (!cursor.isAfterLast()) {
                 Lesson student = new Lesson(
                         cursor.getString(cursor.getColumnIndex(NOTES))
@@ -306,6 +310,7 @@ public class DbHandler extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return lessonsList;
     }
 
@@ -319,10 +324,8 @@ public class DbHandler extends SQLiteOpenHelper {
         Log.d(TAG , "GetLessonById query " + selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.close();
 
         cursor.moveToFirst();
-
         Lesson lesson = new Lesson();
         lesson.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
         lesson.setStartTime(cursor.getString(cursor.getColumnIndex(START_TIME)));
@@ -332,9 +335,9 @@ public class DbHandler extends SQLiteOpenHelper {
         lesson.setMeetingAddress(cursor.getString(cursor.getColumnIndex(MEETING_ADDRESS)));
         lesson.setStudentId(cursor.getInt(cursor.getColumnIndex(STUDENT_ID)));
 
+        cursor.close();
         return lesson;
     }
-
 
     // Delete Lesson Details
     public void deleteLesson(int lessonId){
@@ -344,7 +347,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     // Update Lesson Details
-    public void updateLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
+    public int updateLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         cValues.put(NOTES, notes);
@@ -356,9 +359,11 @@ public class DbHandler extends SQLiteOpenHelper {
         cValues.put(IS_PACKAGE, isPackageLesson);
         cValues.put(STUDENT_ID, studentId);
         cValues.put(LESSON_ID, lessonId);
-        db.update(TABLE_Lessons, cValues, LESSON_ID+" = ?",new String[]{String.valueOf(lessonId)});
+        int count = db.update(TABLE_Lessons, cValues, LESSON_ID+" = ?",new String[]{String.valueOf(lessonId)});
+        return  count;
     }
         //endregion
 
     //region Driving Tests
+
 }

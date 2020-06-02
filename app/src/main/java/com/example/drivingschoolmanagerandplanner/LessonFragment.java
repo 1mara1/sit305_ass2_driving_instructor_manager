@@ -264,11 +264,9 @@ public class LessonFragment extends Fragment {
 
     }
 
-    private int updateLessonToDb(String notes, float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
+    private void updateLessonToDb(String notes, float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
         DbHandler dbHandler = new DbHandler(getActivity());
-        long rowId = dbHandler.updateLessonDetails(notes, amount, day, startTime, endTime, meetingAddress, isPackageLesson, studentId, lessonId);
-        Log.d(TAG, "lesson rowId " + rowId);
-        return (int)rowId;
+       dbHandler.updateLessonDetails(notes, amount, day, startTime, endTime, meetingAddress, isPackageLesson, studentId, lessonId);
     }
 
     private void SetlessonDetails(Lesson lesson) {
