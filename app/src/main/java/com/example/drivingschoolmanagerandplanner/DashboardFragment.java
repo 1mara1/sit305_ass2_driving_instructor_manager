@@ -36,7 +36,7 @@ import java.util.Set;
 public class DashboardFragment extends Fragment {
 
     private static final String TAG = "DashboardFragment";
-    public static final String TITLE = "title";
+    static final String TITLE = "title";
     private ArrayList<Student> students;
     private ArrayList<Lesson> lessons;
     private ImageButton lessonAddButton, studentAddButton, studentsListButton,  lessonsListButton;
@@ -80,10 +80,11 @@ public class DashboardFragment extends Fragment {
                 // id: 2131231037 Favorites
                 // id  2131231036 Add Student
                 // id: 2131231035 Add Lesson
+                // id's keep changing
 
                 Log.d(TAG, "onNavigationItemSelected: item id " + item.getItemId());
-
-                if(item.getItemId() == 2131231037){
+                Log.d(TAG, "onNavigationItemSelected: title "+ item.getTitle());
+                if(item.getTitle().equals("Favorite")){
                     // favourites
                     // retrieve the favorite from the shared preferences
                     // Instantiate the adapter for listview
@@ -106,13 +107,13 @@ public class DashboardFragment extends Fragment {
                     }
                 }
 
-                if (item.getItemId() == 2131231036){
+                if (item.getTitle().equals("Add Student")){
                     // add student
                     StaticHelpers.setFragment(new StudentFragment(), getFragmentManger(), TITLE,"New Student");
                     Log.d(TAG, "onNavigationItemSelected: add student");
                 }
 
-                if(item.getItemId() == 2131231035) {
+                if (item.getTitle().equals("Add Lesson")){
                     StaticHelpers.setFragment(new LessonFragment(), getFragmentManger(), TITLE, "New Lesson");
                     Log.d(TAG, "onNavigationItemSelected: New Lesson");
                 }

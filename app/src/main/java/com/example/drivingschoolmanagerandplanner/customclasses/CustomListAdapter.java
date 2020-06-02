@@ -17,7 +17,7 @@ public abstract class CustomListAdapter<T> extends RecyclerView.Adapter<Recycler
 
     public abstract void onBindData(RecyclerView.ViewHolder holder, T val);
 
-    public CustomListAdapter(Context context, ArrayList<T> records){
+    protected CustomListAdapter(Context context, ArrayList<T> records){
         this.context = context;
         this.records = records;
     }

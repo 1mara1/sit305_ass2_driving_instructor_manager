@@ -7,9 +7,7 @@ package com.example.drivingschoolmanagerandplanner;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,34 +16,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.drivingschoolmanagerandplanner.customclasses.DbHelper;
 import com.example.drivingschoolmanagerandplanner.customclasses.StaticHelpers;
 import com.example.drivingschoolmanagerandplanner.data.DbHandler;
 import com.example.drivingschoolmanagerandplanner.models.Student;
-
 import java.util.Objects;
 
-
-///**
-// * A simple {@link Fragment} subclass.
-// * Use the {@link StudentFragment#newInstance} factory method to
-// * create an instance of this fragment.
-// */
 public class StudentFragment extends Fragment {
 
-    public static final String ID = "id";
-    public static final String STUDENT_ID = "student_id";
-
-    Button saveLessonButton;
-    EditText lastnameEditText, firstNameEditText, mobileEditText, emailEditText, addressLineEditText, suburbEditText, stateEditText, postcodeEditText, countryEditText;
-    TextView studentFormTitleTextView;
-
-    long row;
-
+    private static final String STUDENT_ID = "student_id";
+    private Button saveLessonButton;
+    private EditText lastnameEditText, firstNameEditText, mobileEditText, emailEditText, addressLineEditText, suburbEditText, stateEditText, postcodeEditText, countryEditText;
+    private TextView studentFormTitleTextView;
+    private long row;
     private static final String TAG = "StudentFragment";
     private String firstName, lastName, email, addressLine, suburb,state, country, title ;
-int mobile, postcode;
+    private int mobile, postcode;
 
     public StudentFragment() {
         // Required empty public constructor
@@ -62,12 +48,9 @@ int mobile, postcode;
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_student, container, false);
         InitialiseEditTexts(view);
-
         saveLessonButton = (Button) view.findViewById(R.id.saveLessonButton);
         editStudentDetailsFromActivity();
-
         setEditText();
-
         //Log.d(TAG, "onCreateView: phone " + mobile + " email " + email);
 
         saveLessonButton.setOnClickListener(new View.OnClickListener() {
@@ -86,11 +69,7 @@ int mobile, postcode;
                         countryEditText.getText().toString()
                 };
 
-
                 Log.d(TAG, "onClick: trying to save student");
-
-
-
 
                 if (StaticHelpers.validate(values)) {
                     // we have all fields filled in
@@ -101,10 +80,7 @@ int mobile, postcode;
                     if(title.contains(getResources().getString(R.id.edit_student)))
                         Log.d(TAG, "onClick: ");
 
-
                     if(title.contains("Update Student")){
-
-
                         int count  = DbHelper.updateStudent(getActivity(),  s.getFirstName(), s.getLastName(),s.getPhone(), s.getEmail(),s.getAddressLine(),s.getSuburb(),s.getState(),s.getPostcode(), s.getCountry(),(int)row);
                         Log.d(TAG, "onClick: update student "+ count);
                         DisplayMessage("Student updated!" );
@@ -113,7 +89,6 @@ int mobile, postcode;
                         row = saveStudentToDb(s.getFirstName(), s.getLastName(), s.getPhone(), s.getEmail(), s.getAddressLine(), s.getSuburb(), s.getState(), s.getPostcode(), s.getCountry());
                         DisplayMessage("Student saved!");
                     }
-
 
                     Log.d(TAG, "onClick: student row in db " + row);
 
@@ -129,9 +104,8 @@ int mobile, postcode;
         return view;
     }
 
-
-
     // region private methods
+
     private void InitialiseEditTexts(View view) {
         firstNameEditText = (EditText) view.findViewById(R.id.firstNameEditText);
         lastnameEditText = (EditText) view.findViewById(R.id.lastnameEditText);
@@ -144,7 +118,6 @@ int mobile, postcode;
         countryEditText = (EditText) view.findViewById(R.id.countryEditText);
         studentFormTitleTextView = (TextView) view.findViewById(R.id.studentFormTitleTextView);
     }
-
 
     private Student SaveStudent(View view) {
         return new Student(
@@ -160,7 +133,6 @@ int mobile, postcode;
         );
     }
 
-
     private long saveStudentToDb(String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country) {
         DbHandler dbHandler = new DbHandler(getActivity());
         long rowId = dbHandler.insertStudentDetails(firstName, lastName, phone, email, addressLine, suburb, state, postcode, country);
@@ -168,7 +140,6 @@ int mobile, postcode;
 
         return rowId;
     }
-
 
     private void DisplayMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
@@ -200,8 +171,5 @@ int mobile, postcode;
         countryEditText.setText(country);
         studentFormTitleTextView.setText(title);
     }
-
-
-
     // endregion private methods
 }

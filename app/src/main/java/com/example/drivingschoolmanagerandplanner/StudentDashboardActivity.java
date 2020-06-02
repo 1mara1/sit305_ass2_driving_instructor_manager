@@ -45,7 +45,6 @@ public class StudentDashboardActivity extends AppCompatActivity {
     public static final String NUMBER_TESTS = "number_tests" ;
     public static final String NUMBER_PACKAGES = "number_packages";
 
-    private TabLayout studentDashboardTabs;
     long studentId = -1;
     Student student;
     long lessonId = -1;
@@ -57,11 +56,8 @@ public class StudentDashboardActivity extends AppCompatActivity {
 
 //       Retrieve the id from the bundle and query the database by studentId
        studentId = StaticHelpers.RetrieveIdFromBundle(getIntent(), ListItemsFragment.STUDENT_ID);
-
-
         student = DbHelper.getStudentById(this, studentId);
-
-
+        TabLayout studentDashboardTabs = (TabLayout) findViewById(R.id.studentDashboardTabs);
         LoadTopFragmentWithBundle(student);
 
         long[] keyValues = StaticHelpers.RetrieveIdsFromBundle(getIntent(), LessonFragment.LESSON_ID, LessonFragment.STUDENT_ID);
@@ -77,26 +73,18 @@ public class StudentDashboardActivity extends AppCompatActivity {
                     studentLessons.add(lesson.getStudentId());
                 }
             }
-
-
         }
 
         Log.d(TAG, "onCreate: keyValues" + keyValues[0] + " " + keyValues[1]);
 
         Log.d(TAG, "onCreate: lessonId "+ lessonId);
 
-
-
-
-        //StaticHelpers.LoadFragment(getSupportFragmentManager().beginTransaction(), R.id.studentDetailsBottom, new StudentDetailsBottomFragment());
-
         LoadBottomFragmentWithBundle(studentLessons.size(),0,0);
 
-        studentDashboardTabs = (TabLayout) findViewById(R.id.studentDashboardTabs);
         Log.d(TAG, "onCreate: studentDashboardTabs" + studentDashboardTabs);
 
 
-//        https://stackoverflow.com/questions/44899784/android-tabitem-onclick-doesnt-work
+//      idea based at https://stackoverflow.com/questions/44899784/android-tabitem-onclick-doesnt-work
         studentDashboardTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -108,10 +96,6 @@ public class StudentDashboardActivity extends AppCompatActivity {
                 if(tabName.contains("Lessons")) {
                     StaticHelpers.LoadFragmentWithId(getSupportFragmentManager().beginTransaction(), new LessonFragment(),R.id.studentDetailsTop, TAG, TAG, STUDENT_ID, (int)studentId);
                 }
-
-
-//                Add Package
-//                Add Test
             }
 
             @Override

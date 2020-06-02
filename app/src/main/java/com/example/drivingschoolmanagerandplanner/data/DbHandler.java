@@ -211,13 +211,11 @@ public class DbHandler extends SQLiteOpenHelper {
         Log.d(TAG , "GetStudentById query " + selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.close();
+        if(!cursor.moveToFirst())
+            return null;
 
-        if(cursor != null)
-            if(cursor.moveToFirst() == false)
-                return null;
-
-        if (cursor != null)
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
         Student student = new Student();
         student.setFullName(cursor.getString(cursor.getColumnIndex(FIRST_NAME))
@@ -289,7 +287,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<Lesson> lessonsList = new ArrayList<>();
         String query = "SELECT notes, amount, day, startTime, endTime, meetingAddress, isPackageLesson, id, lessonId FROM " + TABLE_Lessons;
         Cursor cursor = db.rawQuery(query, null);
-
+        cursor.close();
         if (cursor.moveToFirst()) {
 
             while (!cursor.isAfterLast()) {
@@ -321,9 +319,9 @@ public class DbHandler extends SQLiteOpenHelper {
         Log.d(TAG , "GetLessonById query " + selectQuery);
 
         Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.close();
 
-        if (cursor != null)
-            cursor.moveToFirst();
+        cursor.moveToFirst();
 
         Lesson lesson = new Lesson();
         lesson.setDay(cursor.getString(cursor.getColumnIndex(DAY)));
@@ -346,7 +344,7 @@ public class DbHandler extends SQLiteOpenHelper {
     }
 
     // Update Lesson Details
-    public int updateLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
+    public void updateLessonDetails(String notes, Float amount, String day, String startTime, String endTime, String meetingAddress, int isPackageLesson, int studentId, int lessonId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cValues = new ContentValues();
         cValues.put(NOTES, notes);
@@ -358,91 +356,9 @@ public class DbHandler extends SQLiteOpenHelper {
         cValues.put(IS_PACKAGE, isPackageLesson);
         cValues.put(STUDENT_ID, studentId);
         cValues.put(LESSON_ID, lessonId);
-        int count = db.update(TABLE_Lessons, cValues, LESSON_ID+" = ?",new String[]{String.valueOf(lessonId)});
-        return  count;
+        db.update(TABLE_Lessons, cValues, LESSON_ID+" = ?",new String[]{String.valueOf(lessonId)});
     }
         //endregion
 
     //region Driving Tests
-
-    public long insertTestDetails(String location, String testDate, String testTime, String bookingNumber, int result, int studentId) {
-        // Get the database to writable mode
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        //A new ContentValues object to create map of values, the table columns are used as keys
-        ContentValues cValues = new ContentValues();
-        cValues.put(LOCATION, location);
-        cValues.put(TEST_DATE, testDate);
-        cValues.put(TEST_TIME, testTime);
-        cValues.put(BOOKING_NUMBER, bookingNumber);
-        cValues.put(RESULT, result);
-        cValues.put(STUDENT_ID, studentId);
-
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(TABLE_Driving_Tests, null, cValues);
-        db.close();
-
-        return newRowId;
-    }
-
-    public ArrayList<DrivingTest> getDrivingTests() {
-        // AddingNewLessons
-        //DrivingTest(String location, String date, String time, int bookingNumber, int result, int studentId) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ArrayList<DrivingTest> testsList = new ArrayList<>();
-        String query = "SELECT location, testDate, testTime, endTime, bookingNumber, result, id FROM " + TABLE_Driving_Tests;
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-
-            while (!cursor.isAfterLast()) {
-                DrivingTest test = new DrivingTest(
-                        cursor.getString(cursor.getColumnIndex(LOCATION))
-                        , cursor.getString(cursor.getColumnIndex(TEST_DATE))
-                        , cursor.getString(cursor.getColumnIndex(TEST_TIME))
-                        , cursor.getString(cursor.getColumnIndex(BOOKING_NUMBER))
-                        , cursor.getInt(cursor.getColumnIndex(RESULT))
-                        , cursor.getInt(cursor.getColumnIndex(STUDENT_ID))
-                );
-                testsList.add(test);
-                cursor.moveToNext();
-            }
-        }
-        return testsList;
-    }
-
-    // Delete User Details
-    public void deleteTest(int testId){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_Driving_Tests, TEST_ID+" = ?",new String[]{String.valueOf(testId)});
-        db.close();
-    }
-
-    // Update User Details
-    public int updateTestDetails(String location, String testDate, String testTime, int bookingNumber, int result, int studentId, int testId) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cValues = new ContentValues();
-        cValues.put(LOCATION, location);
-        cValues.put(TEST_DATE, testDate);
-        cValues.put(TEST_TIME, testTime);
-        cValues.put(BOOKING_NUMBER, bookingNumber);
-        cValues.put(RESULT, result);
-        cValues.put(STUDENT_ID, studentId);
-        int count = db.update(TABLE_Driving_Tests, cValues, TEST_ID+" = ?",new String[]{String.valueOf(testId)});
-        return  count;
-    }
-
-    //endregion Driving Tests
-
-
-
-
-
-
-////region Packages Queries
-//
-////endregion
-
 }

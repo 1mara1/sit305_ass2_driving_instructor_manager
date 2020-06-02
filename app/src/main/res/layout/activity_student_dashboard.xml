@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_vol_type_tv_dark"
-                android:text="@string/lessons" />
+                android:text="@string/lessons_view" />
 
         </com.google.android.material.tabs.TabLayout>
 

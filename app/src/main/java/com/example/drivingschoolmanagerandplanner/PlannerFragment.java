@@ -26,7 +26,7 @@ public class PlannerFragment extends Fragment {
     private TextView studentTextView, lessonTextView;
     private EditText topicEditText;
     private Button startMapButton;
-    int lessonId;
+    private int lessonId;
 
 
 
@@ -54,7 +54,7 @@ public class PlannerFragment extends Fragment {
         initialiseWidgets(view);
 
 
-        //https://www.tutlane.com/tutorial/android/android-ratingbar-with-examples
+     //  idea based at //https://www.tutlane.com/tutorial/android/android-ratingbar-with-examples
         int noofstars = performanceRatingBar.getNumStars();
         float getrating = performanceRatingBar.getRating();
 
@@ -70,11 +70,7 @@ public class PlannerFragment extends Fragment {
 
             lessonTextView.setText(new StringBuilder().append(lesson.getDay()).append(" ").append(lesson.getStartTime()).append(" ").append(lesson.getEndTime()).toString());
             studentTextView.setText(student.getFullName());
-//            StaticHelpers.displayToastMessage(getContext(),"");
         }
-
-
-
         return view;
     }
 
@@ -85,6 +81,4 @@ public class PlannerFragment extends Fragment {
         topicEditText = StaticHelpers.initialiseEditText(view, R.id.topicEditText);
         startMapButton = StaticHelpers.initialiseButton(view, R.id.startMapButton);
     }
-
-
 }

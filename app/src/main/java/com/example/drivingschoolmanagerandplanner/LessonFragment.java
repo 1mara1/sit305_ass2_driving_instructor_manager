@@ -36,23 +36,22 @@ public class LessonFragment extends Fragment {
     private static final String TAG = "LessonFragment" ;
     public static final String LESSON_ID = "id" ;
     public static final String STUDENT_ID = "student_id";
-    int lessonId = -1;
-    int studentId = -1; // to populate the lesson record foreign key and display student details
-    int positionFromSpinner = -1;
-    int studentfromLesson;
+    private int lessonId = -1;
+    private int studentId = -1; // to populate the lesson record foreign key and display student details
+    private int positionFromSpinner = -1;
+    private int studentfromLesson;
 
-    Button timeStartButton, timeEndButton, saveLesson, dayLessonButton;
-    EditText  meetingLocationEditText, amountEditText, commentsEditText ;
-    TextView lessonTitleTextView;
-    TimePickerDialog picker;
-    DatePickerDialog datePicker;
-    Spinner  lessonSpinner;
+    private Button timeStartButton, timeEndButton, saveLesson, dayLessonButton;
+    private EditText  meetingLocationEditText, amountEditText, commentsEditText ;
+    private TextView lessonTitleTextView;
+    private TimePickerDialog picker;
+    private DatePickerDialog datePicker;
+    private Spinner  lessonSpinner;
 
 
     public LessonFragment() {
         // Required empty public constructor
     }
-
 
    @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,10 +59,10 @@ public class LessonFragment extends Fragment {
 
         // Check where the bundle was populated
         if(getArguments() != null){
-            if(getArguments().getString(StudentDashboardActivity.TAG) == "StudentDashboardActivi" ){
+            if(Objects.equals(getArguments().getString(StudentDashboardActivity.TAG), "StudentDashboardActivi")){
                 // from the student dashboard when the user clicks to trigger the lesson.
                 studentId = getArguments().getInt(StudentDashboardActivity.STUDENT_ID);
-            }else if(getArguments().getString(ListItemsFragment.TAG) == "ListFragment" ){
+            }else if(Objects.equals(getArguments().getString(ListItemsFragment.TAG), "ListFragment")){
                 // from the generic list when student clicks on a record from the lessons
                 lessonId = getArguments().getInt(ListItemsFragment.LESSON_ID);
                 studentId = getArguments().getInt(ListItemsFragment.STUDENT_ID);
@@ -80,7 +79,7 @@ public class LessonFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_lesson, container, false);
 
-        ActionBar actionBar = getActivity().getActionBar();
+        ActionBar actionBar = Objects.requireNonNull(getActivity()).getActionBar();
         Log.d(TAG, "onCreateView: " + actionBar);
 
         lessonSpinner = (Spinner)view.findViewById(R.id.lessonSpinner);
@@ -155,7 +154,6 @@ public class LessonFragment extends Fragment {
             }
         });
 
-
         timeStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +176,7 @@ public class LessonFragment extends Fragment {
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
-                datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                datePicker = new DatePickerDialog(Objects.requireNonNull(getActivity()), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
                         dayLessonButton.setText(mDay + "/" + (mMonth+1) + "/" + mYear);
@@ -338,5 +336,4 @@ public class LessonFragment extends Fragment {
         Log.d(TAG, "getStudentsFromDB: row Id " + rowId);
         return rowId;
     }
-
 }

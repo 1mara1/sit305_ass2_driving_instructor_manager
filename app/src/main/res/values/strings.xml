@@ -13,7 +13,7 @@
     <string name="first_name_hint">Enter your firstname</string>
     <string name="last_name_hint">Enter your lastname</string>
     <string name="addressLine">Address</string>
-    <string name="address_line_hint">1-10 12 Example St</string>
+    <string name="address_line_hint">1–10 12 Example St</string>
     <string name="suburb_hint">Enter your suburb</string>
     <string name="postcode_hint">Enter you postcode</string>
     <string name="country">Country</string>
@@ -35,7 +35,7 @@
     <string name="add_student">Add Student</string>
     <string name="favorite">Favorite</string>
     <string name="dollar_sign">$</string>
-    <string name="lessons">Lessons</string>
+    <string name="lessons_view">Lessons</string>
     <string name="amount">Amount</string>
     <string name="number_of_lessons">Lessons #</string>
     <string name="date_purchased">Date</string>
@@ -54,4 +54,6 @@
     <string name="lesson">Lesson</string>
     <string name="rating">Performance</string>
     <string name="map">Map</string>
+    <string name="details">Details</string>
+    <string name="new_lesson">Add Lesson</string>
 </resources>

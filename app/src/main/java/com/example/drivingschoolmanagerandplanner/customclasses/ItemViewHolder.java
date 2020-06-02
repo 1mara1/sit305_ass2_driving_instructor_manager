@@ -14,7 +14,7 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private View view;
-   public final ImageView image;
+   private final ImageView image;
    public final TextView rightOfImage, belowImageLeft, belowImageCentre, belowImageRight;
 
 

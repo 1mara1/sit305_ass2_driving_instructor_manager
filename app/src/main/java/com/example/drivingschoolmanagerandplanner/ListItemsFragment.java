@@ -1,8 +1,8 @@
-// ListRecordsFragment displays a list based on the provided model class
-//
+// ListRecordsFragment displays a list from the provided model class
+
 // 1) It used to set the recycler view with the adapter to display the records
 // 2) It starts another activity when an item is clicked
-// At the moment the class is used by the DashboardFragment receiving the model class
+
 
 package com.example.drivingschoolmanagerandplanner;
 
@@ -42,12 +42,12 @@ import java.util.Set;
 
 public class ListItemsFragment<T> extends Fragment {
 
-    public static final String TAG = "ListFragment" ;
-    public static final String STUDENT_ID = "student_id";
-    public static final String LESSON_ID = "Lesson Id";
-    SharedPreferences sharedPref;
-    Student student;
-    CustomListAdapter<T> adapter;
+    static final String TAG = "ListFragment" ;
+    static final String STUDENT_ID = "student_id";
+    static final String LESSON_ID = "Lesson Id";
+    private SharedPreferences sharedPref;
+    private Student student;
+    private CustomListAdapter<T> adapter;
     private Set<String> ids;
     private Set<String> lessonIds;
     private RecyclerView recyclerView;
@@ -59,7 +59,7 @@ public class ListItemsFragment<T> extends Fragment {
     private Set<String> favoritesSet;
 
     // constructor to create an array based on model class
-    public ListItemsFragment(ArrayList<T> data) {
+    ListItemsFragment(ArrayList<T> data) {
         // Required empty public constructor
         this.data = data;
     }
@@ -77,12 +77,6 @@ public class ListItemsFragment<T> extends Fragment {
         }
     }
 
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putIntArray(STUDENT_ID, ids);
-//    }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -95,12 +89,8 @@ public class ListItemsFragment<T> extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         listTitleTextView = (TextView) view.findViewById(R.id.listTitleTextView);
-
         listTitleTextView.setText(title);
-
-        sharedPref = getActivity().getSharedPreferences(STUDENT_ID, Context.MODE_PRIVATE);
-        sharedPref = getActivity().getSharedPreferences(LESSON_ID, Context.MODE_PRIVATE);
-
+        sharedPref = Objects.requireNonNull(getActivity()).getSharedPreferences(STUDENT_ID, Context.MODE_PRIVATE);
         recyclerView = (RecyclerView) view.findViewById(R.id.listRecyclerView);
 
         ids = new HashSet<>();
@@ -124,30 +114,28 @@ public class ListItemsFragment<T> extends Fragment {
                 ItemViewHolder itemHolder = (ItemViewHolder) holder;
 
                 if (val instanceof Student) {
+                    // we have a record for a Student
                     Student student = (Student) val;
-
                     // save the student id so that we can access it later when clicked on the  list item
                     ids.add(String.valueOf(student.getStudentId()));
                     sharedPref.edit().putStringSet(STUDENT_ID, ids);
                     Log.d(TAG, "onBindData: student id: " + student.getStudentId());
+                    // Set the details
                     setItemHolders(itemHolder, student.getFullName(), student.getAddress(), "", "");
                 } else if (val instanceof Lesson) {
+                    // we have a record for a Lesson
                     Lesson lesson = (Lesson) val;
                     if (titleFromStudentDash != null) {
                         // we have request from the student dashboard to load the lessons for a specific student
-
 //                        Log.d(TAG, "onBindData:  student" + lesson.getClass());
 
                         lessonIds.add(String.valueOf(lesson.getLessonId()));
                         sharedPref.edit().putStringSet(LESSON_ID, lessonIds);
-
-//                        DbHandler db = DbHelper.getDbHandler(Objects.requireNonNull(getActivity()));
-//                        student = db.GetStudentById(lesson.getStudentId());
-                          Student student = DbHelper.getStudentById(getActivity(), lesson.getStudentId());
-
-                        setItemHolders(itemHolder, student.getFullName() , lesson.getStartTime(), lesson.getEndTime(), lesson.getMeetingAddress());
+                        Student student = DbHelper.getStudentById(getActivity(), lesson.getStudentId());
+                        // Set the details
+                        setItemHolders(itemHolder, student.getFullName(), lesson.getStartTime(), lesson.getEndTime(), lesson.getMeetingAddress());
                     } else if (titleFromStudentDash == null) {
-                        // we request other than the student dashboard
+                        // we have a request other than the student dashboard
 
                         Log.d(TAG, "onBindData:  student" + lesson.getClass());
                         lessonIds.add(String.valueOf(lesson.getLessonId()));
@@ -165,24 +153,20 @@ public class ListItemsFragment<T> extends Fragment {
                     }
                 } else {
                     // if we have the id's
-                    if(data != null) {
+                    if (data != null) {
                         String i = val.toString();
-                            Integer sId = Integer.valueOf(i);
-                            if(sId == Integer.valueOf(i)) {
-                                student = DbHelper.getStudentById(getActivity(), sId);
-                                //  ids.add(String.valueOf(student.getStudentId()));
-                                //    sharedPref.edit().putStringSet(STUDENT_ID, ids);
-                                if(student!= null)
-                                    setItemHolders(itemHolder, student.getFullName(), student.getAddress(), "", "");
-                                else
-                                    setItemHolders(itemHolder, "", "", "", "");
+                        Integer sId = Integer.valueOf(i);
+                        if (sId.equals(Integer.valueOf(i))) {
+                            // only matching id's
+                            student = DbHelper.getStudentById(getActivity(), sId);
+                            if (student != null)
+                                setItemHolders(itemHolder, student.getFullName(), student.getAddress(), "", "");
+                            else
+                                setItemHolders(itemHolder, "", "", "", "");
                         }
                     }
                 }
             }
-
-
-
 
             @Override
             public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -198,9 +182,7 @@ public class ListItemsFragment<T> extends Fragment {
 
                         if (value instanceof Student) {
                             // retrieve it from the shared preferences
-                            Object[] id = ids.toArray();
-                            Log.d(TAG, "onClick: value from set  "+ id[position]);
-                            long sId = Long.parseLong((String)id[position]);
+                            long sId = getsId(position);
 
                             Bundle args = new Bundle();
                             args.putLong(STUDENT_ID, sId);
@@ -217,11 +199,11 @@ public class ListItemsFragment<T> extends Fragment {
                                 int lId = Integer.parseInt((String) id[position]);
                                 // we have a request from the the student dashboard when a lesson is clicked
                                 // load the lesson planner
-                               Lesson les = DbHelper.getLessonById(getActivity(), lId);
+                                Lesson les = DbHelper.getLessonById(getActivity(), lId);
 
                                 Bundle args = new Bundle();
                                 args.putInt(STUDENT_ID,  les.getStudentId());
-                                args.putInt(LESSON_ID,   lId);
+                                args.putInt(LESSON_ID,   (int)lId);
                                 StaticHelpers.LoadFragmentWithBundle(Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction(), new PlannerFragment(), R.id.studentDetailsTop, args);
                             }else if (titleFromStudentDash == null) {
                                 Object[] id = lessonIds.toArray();
@@ -249,17 +231,21 @@ public class ListItemsFragment<T> extends Fragment {
         return view;
     }
 
-
+    private long getsId(int position) {
+        Object[] id = ids.toArray();
+        Log.d(TAG, "onClick: value from set  "+ id[position]);
+        return Long.parseLong((String)id[position]);
+    }
 
     // Sets the values for the row
     private void setItemHolders(ItemViewHolder itemHolder, String rightOfImage, String belowImageLeft, String belowImageCentre, String belowImageRight ) {
         itemHolder.rightOfImage.setText(rightOfImage);
         itemHolder.belowImageLeft.setText(belowImageLeft);
         itemHolder.belowImageCentre.setText(belowImageCentre);
-        itemHolder.belowImageRight.setText(String.format(belowImageRight));
+        itemHolder.belowImageRight.setText(belowImageRight);
     }
 
-    public void checkSharedPreferences()
+    private void checkSharedPreferences()
     {
         ids = sharedPref.getStringSet(STUDENT_ID, ids);
     }

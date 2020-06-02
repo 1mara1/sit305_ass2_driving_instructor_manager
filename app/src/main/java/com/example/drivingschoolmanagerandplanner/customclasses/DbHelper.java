@@ -1,18 +1,14 @@
 package com.example.drivingschoolmanagerandplanner.customclasses;
 
 import android.app.Activity;
-import androidx.fragment.app.Fragment;
 import com.example.drivingschoolmanagerandplanner.data.DbHandler;
 import com.example.drivingschoolmanagerandplanner.models.DrivingTest;
 import com.example.drivingschoolmanagerandplanner.models.Lesson;
 import com.example.drivingschoolmanagerandplanner.models.Student;
+
 import java.util.ArrayList;
 
 public class DbHelper {
-
-    public static DbHandler getDbHandler(Fragment activity){
-        return new DbHandler(activity.getActivity());
-    }
 
     public static DbHandler getDbHandler(Activity activity){
         return new DbHandler(activity.getApplicationContext());
@@ -22,7 +18,6 @@ public class DbHelper {
         DbHandler db = getDbHandler(activity);
         return db.GetStudentById((int)id);
     }
-
 
     public static ArrayList<Student> getStudents(Activity activity){
         DbHandler db = getDbHandler(activity);
@@ -39,11 +34,6 @@ public class DbHelper {
         return db.GetLessonById(id);
     }
 
-    public static ArrayList<DrivingTest> getTests(Activity activity){
-        DbHandler db = getDbHandler(activity);
-        return db.getDrivingTests();
-    }
-
     public static int updateStudent(Activity activity, String firstName, String lastName, int phone, String email, String addressLine, String suburb, String state, int postcode, String country, int studentId){
         DbHandler db = getDbHandler(activity);
       return  db.updateStudentDetails(firstName, lastName,  String.valueOf(phone), email, addressLine, suburb, state, String.valueOf(postcode), country,  studentId);
@@ -54,5 +44,4 @@ public class DbHelper {
         db.deleteStudent(studentId);
         db.close();
     }
-
 }

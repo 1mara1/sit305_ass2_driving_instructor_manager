@@ -44,19 +44,14 @@ public class StudentDetailsTopFragment extends Fragment {
     private static final String TAG = "StudentDetailsTopFragm";
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
     private static final String STATE = "State";
-    public static final String FAVORITES = "Favorites";
+    static final String FAVORITES = "Favorites";
     private ToggleButton favouriteToggleButton;
-
     private TextView fullNameTopTextView, mobileTextView, emailTextView, addressTextView;
     private String name, email, address;
     private int mobile;
     private long studentId;
-
-   // ArrayList<Long> favoriteStudents;
     SharedPreferences sharedPreferences;
     Set<String> favorites; // for the shared pref to store the values
-
-
     //endregion Declarations
 
     // Constructor
@@ -111,10 +106,6 @@ Boolean contain =false;
                 //   favouriteToggleButton.setChecked(false);
             }
         }
-          //  favouriteToggleButton.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.favorite));
-        //    favouriteToggleButton.setChecked(false);
-
-
 
         //https://stackoverflow.com/questions/34980309/favourite-button-android
 
@@ -139,9 +130,6 @@ Boolean contain =false;
                 }
             }
         });
-
-
-
 
         mobileTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,7 +272,6 @@ Boolean contain =false;
     }
 
     // end idea https://stackoverflow.com/questions/6186123/android-how-do-i-get-sharedpreferences-from-another-activity
-
 
     // endregion private methods
 }
